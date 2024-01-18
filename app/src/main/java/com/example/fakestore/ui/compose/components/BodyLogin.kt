@@ -28,7 +28,6 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -38,9 +37,13 @@ import com.example.fakestore.ui.compose.theme.tertiary
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Login(onLoginClicked: (String, String) -> Unit) {
-    val email = remember { mutableStateOf(TextFieldValue()) }
-    val password = remember { mutableStateOf(TextFieldValue()) }
+fun LoginForm(
+    onEmailChanged: (String) -> Unit,
+    onPasswordChanged: (String) -> Unit,
+    onLoginClicked: () -> Unit
+) {
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
     var passwordVisibility by remember { mutableStateOf(false) }
 
     Column(
@@ -55,23 +58,30 @@ fun Login(onLoginClicked: (String, String) -> Unit) {
             fontStyle = FontStyle.Italic,
             fontWeight = FontWeight.Bold
         )
-        TextField(
-            value = email.value,
+        OutlinedTextField(
+            value = email,
             onValueChange = {
-                email.value = it
+                email = it
+                onEmailChanged(it)
             },
-            placeholder = { Text(text = "Enter your email") }
+            label = { Text(text = "Address email", color = Color.White) },
 
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Password
+            ),
+            singleLine = true,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(20.dp, top = 0.dp, end = 20.dp)
         )
-        val icon = if (passwordVisibility)
-            painterResource(id = R.drawable.design_ic_visibility)
-        else
-            painterResource(id = R.drawable.design_ic_visibility_off)
+        val icon = if (passwordVisibility) painterResource(id = R.drawable.design_ic_visibility)
+        else painterResource(id = R.drawable.design_ic_visibility_off)
 
         OutlinedTextField(
-            value = password.value,
+            value = password,
             onValueChange = {
-                password.value = it
+                password = it
+                onPasswordChanged(it)
             },
             label = { Text(text = "Password", color = Color.White) },
             trailingIcon = {
@@ -79,8 +89,7 @@ fun Login(onLoginClicked: (String, String) -> Unit) {
                     passwordVisibility = !passwordVisibility
                 }) {
                     Icon(
-                        painter = icon,
-                        contentDescription = "Visibility Icon"
+                        painter = icon, contentDescription = "Visibility Icon"
                     )
                 }
             },
@@ -95,7 +104,7 @@ fun Login(onLoginClicked: (String, String) -> Unit) {
                 .padding(20.dp, top = 0.dp, end = 20.dp)
         )
         Button(
-            onClick = { onLoginClicked(email.value.text, password.value.text) },
+            onClick = { onLoginClicked() },
             shape = RoundedCornerShape(2.dp),
             modifier = Modifier
                 .fillMaxWidth()

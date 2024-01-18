@@ -1,7 +1,6 @@
 package com.example.fakestore.ui.viewmodel
 
-import androidx.compose.runtime.MutableState
-import androidx.compose.ui.text.input.TextFieldValue
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fakestore.ui.data.Repository
@@ -15,45 +14,43 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class ViewModelLogin @Inject constructor(private val repository: Repository) : ViewModel() {
+class LoginViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
+
+    private var email: String = ""
+    private var password: String = ""
 
     data class UiState(
         val loading: Boolean = false,
-        val email: String = "",
-        val password: String = ""
     )
 
     private val _state = MutableStateFlow(UiState())
     var state: StateFlow<UiState> = _state
 
-    private lateinit var email: MutableStateFlow<TextFieldValue>
-    private lateinit var password: MutableStateFlow<TextFieldValue>
+    fun onEmailChanged(email: String) {
+        this.email = email
+        Log.i("Changes: ", "Email: $email")
+    }
 
-    fun authLogin(email: String, password: String) {
+    fun onPasswordChanged(password: String) {
+        this.password = password
+        Log.i("Changes: ", "Password: $password")
+    }
+
+    fun doLogin() {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 _state.update { it.copy(loading = true) }
                 repository.login(email, password).fold(
                     error = {},
                     success = {
-
+                        _state.update {
+                            it.copy(loading = false)
+                            //TODO: Navigate to the next screen
+                        }
                     }
                 )
             }
         }
     }
-
-
-    fun onLoginClicked(
-        email: MutableState<TextFieldValue>,
-        password: MutableState<TextFieldValue>
-    ) {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                repository.login(email, password)
-            }
-        }
-    }
-
 
 }

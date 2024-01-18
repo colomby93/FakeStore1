@@ -14,21 +14,21 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.fakestore.ui.compose.theme.FakeStoreTheme
 import com.example.fakestore.ui.navigation.NavigationGraph
-import com.example.fakestore.ui.viewmodel.ViewModelLogin
+import com.example.fakestore.ui.viewmodel.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    private val viewModelLogin by viewModels<ViewModelLogin>()
+    private val loginViewModel by viewModels<LoginViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModelLogin.state.collect { state ->
+                loginViewModel.state.collect { state ->
                     if (state.loading) {
                         View.VISIBLE
                     } else {
@@ -46,7 +46,7 @@ class MainActivity : ComponentActivity() {
                         .fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    NavigationGraph(viewModelLogin)
+                    NavigationGraph(loginViewModel)
                 }
             }
         }

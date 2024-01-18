@@ -7,29 +7,38 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
-import com.example.fakestore.ui.compose.components.HeaderLogin
-import com.example.fakestore.ui.compose.components.Login
+import com.example.fakestore.ui.compose.components.LoginForm
+import com.example.fakestore.ui.compose.components.LoginHeader
 import com.example.fakestore.ui.compose.theme.on_tertiary
 import com.example.fakestore.ui.compose.theme.tertiary
 import com.example.fakestore.ui.compose.theme.tertiary_container
 
 @Composable
-fun LoginScreenCompose(onLoginClicked: (String, String) -> Unit) {
+fun LoginScreenCompose(
+    onEmailChanged: (String) -> Unit,
+    onPasswordChanged: (String) -> Unit,
+    onLoginClicked: () -> Unit
+) {
 
-    val linear = Brush.verticalGradient(
+    val verticalGradientBackground = Brush.verticalGradient(
         colors = listOf(
             tertiary,
             on_tertiary,
             tertiary_container
         )
     )
+
     Column(
         modifier = Modifier
             .fillMaxSize()
             .fillMaxWidth()
-            .background(linear)
+            .background(verticalGradientBackground)
     ) {
-        HeaderLogin()
-        Login(onLoginClicked = onLoginClicked)
+        LoginHeader()
+        LoginForm(
+            onEmailChanged = onEmailChanged,
+            onPasswordChanged = onPasswordChanged,
+            onLoginClicked = onLoginClicked
+        )
     }
 }

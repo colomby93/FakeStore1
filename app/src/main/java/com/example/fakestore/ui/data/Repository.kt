@@ -7,5 +7,5 @@ import com.example.fakestore.ui.domain.model.FakeStoreError
 import com.example.fakestore.ui.domain.model.Success
 
 interface Repository {
-    suspend fun login(email: MutableState<TextFieldValue>, password: MutableState<TextFieldValue>): Either<FakeStoreError, Success>
+    suspend fun login(email: String, password: String): Either<FakeStoreError, Success>
 }

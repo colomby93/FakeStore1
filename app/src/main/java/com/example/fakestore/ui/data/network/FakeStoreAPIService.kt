@@ -8,8 +8,6 @@ import retrofit2.http.POST
 
 interface FakeStoreAPIService {
     @POST("/auth/login/")
-    suspend fun login(
-        @Body loginDto: LoginDto
-    ): Response<LoginDto>
+    suspend fun login(@Body loginDto: LoginDto): Response<AuthLoginDto>
 
 }

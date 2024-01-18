@@ -13,12 +13,13 @@ import androidx.compose.ui.unit.dp
 import com.example.fakestore.R
 
 @Composable
-fun HeaderLogin(modifier: Modifier = Modifier) {
+fun LoginHeader(modifier: Modifier = Modifier) {
     Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
         Spacer(modifier = modifier.size(50.dp))
-        Image(painter = painterResource(id = R.drawable.pngegg), contentDescription = "Logo E-Commerce")
+        Image(
+            painter = painterResource(id = R.drawable.pngegg),
+            contentDescription = "Logo E-Commerce"
+        )
     }
-
-
 }
 
