@@ -7,7 +7,7 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface FakeStoreAPIService {
-    @POST("/auth/login/")
+    @POST("auth/login/")
     suspend fun login(@Body loginDto: LoginDto): Response<AuthLoginDto>
 
 }

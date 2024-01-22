@@ -17,7 +17,8 @@ import com.example.fakestore.ui.compose.theme.tertiary_container
 fun LoginScreenCompose(
     onEmailChanged: (String) -> Unit,
     onPasswordChanged: (String) -> Unit,
-    onLoginClicked: () -> Unit
+    onLoginClicked: () -> Unit,
+    isErrorLogin: Boolean
 ) {
 
     val verticalGradientBackground = Brush.verticalGradient(
@@ -38,7 +39,8 @@ fun LoginScreenCompose(
         LoginForm(
             onEmailChanged = onEmailChanged,
             onPasswordChanged = onPasswordChanged,
-            onLoginClicked = onLoginClicked
+            onLoginClicked = onLoginClicked,
+            isErrorLogin = isErrorLogin,
         )
     }
 }
