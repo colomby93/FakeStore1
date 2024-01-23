@@ -2,6 +2,7 @@ package com.example.fakestore.ui.compose.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -30,7 +31,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.fakestore.R
 
@@ -40,9 +40,11 @@ fun Scaffold() {
     var showMenu by remember {
         mutableStateOf(false)
     }
-    TopAppBar(
-        navigationIcon = {
-            IconButton(onClick = { showMenu = !showMenu }) {
+    Column {
+        TopAppBar(navigationIcon = {
+            IconButton(onClick = {
+                showMenu = !showMenu
+            }) {
                 Icon(imageVector = Icons.Filled.Menu, contentDescription = "Open dropdown menu")
             }
             DropdownMenu(
@@ -57,13 +59,13 @@ fun Scaffold() {
                     contentDescription = "Logo",
                     alignment = Alignment.Center
                 )
-                DropdownMenuItem(
-                    leadingIcon = {
-                        Icon(imageVector = Icons.Default.Person, contentDescription = "Icon person")
-                    },
-                    text = {
-                        Text(text = "MY ACCOUNT")
-                    },
+                DropdownMenuItem(leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.Person, contentDescription = "Icon person"
+                    )
+                }, text = {
+                    Text(text = "MY ACCOUNT")
+                },
 
                     onClick = { /*TODO*/ })
                 Divider(
@@ -102,9 +104,7 @@ fun Scaffold() {
                 )
             }
 
-        },
-        title = { Text(text = "My fake store") },
-        actions = {
+        }, title = { Text(text = "Fake store") }, actions = {
             IconButton(onClick = { }) {
                 Icon(imageVector = Icons.Filled.Favorite, contentDescription = "Favorite")
             }
@@ -114,13 +114,13 @@ fun Scaffold() {
             IconButton(onClick = { }) {
                 Icon(imageVector = Icons.Filled.MoreVert, contentDescription = "More")
             }
-        }
-    )
-}
+        })
+        Divider(
+            Modifier
+                .background(Color.LightGray)
+                .height(2.dp)
+                .fillMaxWidth()
+        )
+    }
 
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    Scaffold()
 }

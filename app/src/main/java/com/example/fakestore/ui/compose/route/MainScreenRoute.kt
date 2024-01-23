@@ -5,6 +5,6 @@ import com.example.fakestore.ui.compose.screen.MainScreen
 
 
 @Composable
-fun MainScreenRoute(){
+fun MainScreenRoute() {
     MainScreen()
 }
