@@ -8,10 +8,13 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.example.fakestore.ui.compose.screen.MainScreen
 import com.example.fakestore.ui.compose.theme.FakeStoreTheme
 import com.example.fakestore.ui.navigation.NavigationGraph
 import com.example.fakestore.ui.viewmodel.LoginViewModel
@@ -53,3 +56,10 @@ class MainActivity : ComponentActivity() {
     }
 
 }
+
+@Preview(showBackground = true)
+@Composable
+fun GreetingPreview(){
+    MainScreen()
+}
+
