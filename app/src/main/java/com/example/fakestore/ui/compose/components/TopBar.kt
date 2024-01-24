@@ -1,61 +1,122 @@
 package com.example.fakestore.ui.compose.components
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.material.Tab
-import androidx.compose.material.TabRow
-import androidx.compose.material.TabRowDefaults
-import androidx.compose.material.Text
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.material3.Divider
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.example.fakestore.ui.core.TabsItem
-import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.HorizontalPager
-import com.google.accompanist.pager.PagerState
-import com.google.accompanist.pager.pagerTabIndicatorOffset
-import com.google.accompanist.pager.rememberPagerState
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
+import com.example.fakestore.R
 
-@OptIn(ExperimentalPagerApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopBar() {
-    val tabs = listOf(
-        TabsItem.ItemHome,
-        TabsItem.ItemCategory,
-        TabsItem.ItemCategory
-    )
-    val pageState = rememberPagerState()
-    Column {
-        Tabs(tabs, pageState)
-        TabsItem(tabs, pageState)
-    }
+    var showMenu by remember { mutableStateOf(false) }
+    TopAppBar(navigationIcon = {
+        IconButton(onClick = {
+            showMenu = !showMenu
+        }) {
+            Icon(imageVector = Icons.Filled.Menu, contentDescription = "Open dropdown menu")
+        }
+        DropdownMenu(
+            expanded = showMenu,
+            onDismissRequest = { /*TODO*/ },
+            modifier = Modifier
+                .width(250.dp)
+                .fillMaxHeight()
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.pngegg),
+                contentDescription = "Logo",
+                alignment = Alignment.Center
+            )
+            DropdownMenuItem(leadingIcon = {
+                Icon(
+                    imageVector = Icons.Default.Person,
+                    contentDescription = "Icon person"
+                )
+            }, text = {
+                Text(text = "MY ACCOUNT")
+            },
 
-}
-
-@OptIn(ExperimentalPagerApi::class)
-@Composable
-fun Tabs(
-    tabs: List<TabsItem>,
-    pagerState: PagerState
-) {
-    val scope = rememberCoroutineScope()
-    TabRow(selectedTabIndex = pagerState.currentPage, contentColor = Color.Black) {
-        tabs.forEachIndexed { index, title ->
-            Tab(
-                text = { Text(title.title, color = Color.Black) },
-                selected = pagerState.currentPage == index,
-                onClick = {},
-                modifier = Modifier.background(Color.White)
+                onClick = { /*TODO*/ })
+            Divider(
+                Modifier
+                    .background(Color.DarkGray)
+                    .height(1.dp)
+                    .fillMaxWidth()
+            )
+            DropdownMenuItem(leadingIcon = {
+                Icon(
+                    imageVector = Icons.Default.Favorite,
+                    contentDescription = "Icon Saved articles"
+                )
+            }, text = {
+                Text(text = "SAVED ARTICLES")
+            }, onClick = { /*TODO*/ })
+            Divider(
+                Modifier
+                    .background(Color.DarkGray)
+                    .height(1.dp)
+                    .fillMaxWidth()
+            )
+            DropdownMenuItem(leadingIcon = {
+                Icon(
+                    imageVector = Icons.Default.ShoppingCart,
+                    contentDescription = "Icon shopping cart"
+                )
+            }, text = {
+                Text(text = "SHOPPING CART")
+            }, onClick = { /*TODO*/ })
+            Divider(
+                Modifier
+                    .background(Color.DarkGray)
+                    .height(1.dp)
+                    .fillMaxWidth()
             )
         }
-    }
-}
 
-@OptIn(ExperimentalPagerApi::class)
-@Composable
-fun TabsItem(tabs: List<TabsItem>, pagerState: PagerState) {
-    HorizontalPager(state = pagerState, count = tabs.size) { page ->
-        tabs[page].screen()
+    }, title = { Text(text = "Fake store") }, actions = {
+        IconButton(onClick = { }) {
+            Icon(imageVector = Icons.Filled.Favorite, contentDescription = "Favorite")
+        }
+        IconButton(onClick = { }) {
+            Icon(imageVector = Icons.Filled.Search, contentDescription = "Search")
+        }
+        IconButton(onClick = { }) {
+            Icon(imageVector = Icons.Filled.MoreVert, contentDescription = "More")
+        }
     }
+    )
+    Divider(
+        Modifier
+            .background(Color.LightGray)
+            .height(2.dp)
+            .fillMaxWidth()
+    )
 }
