@@ -9,7 +9,6 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 @Composable
 fun MainScreenHeader() {
 
-
     Scaffold(
         topBar = {
             TopBar()
