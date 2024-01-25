@@ -8,10 +8,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 
 @Composable
-fun HomeRoute() {
+fun MiscellaneousRoute() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Green)
+            .background(Color.Cyan)
     )
 }
