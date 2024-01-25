@@ -38,6 +38,7 @@ import androidx.compose.ui.unit.sp
 import com.example.fakestore.R
 import com.example.fakestore.ui.compose.theme.light_grey
 import com.example.fakestore.ui.compose.theme.tertiary
+import com.example.fakestore.ui.compose.theme.tertiary_container
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -97,7 +98,7 @@ fun LoginForm(
                     passwordVisibility = !passwordVisibility
                 }) {
                     Icon(
-                        painter = icon, contentDescription = "Visibility Icon"
+                        painter = icon, contentDescription = "Visibility Icon", tint = tertiary_container
                     )
                 }
             },

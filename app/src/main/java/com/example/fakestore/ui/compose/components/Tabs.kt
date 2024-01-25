@@ -6,11 +6,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Tab
 import androidx.compose.material.TabRow
+import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextOverflow
 import com.example.fakestore.ui.compose.route.CategoryRoute
 import com.example.fakestore.ui.compose.route.HomeRoute
 import com.example.fakestore.ui.compose.route.ProductsRoute
@@ -23,7 +25,7 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun Tabs(paddingValues: PaddingValues) {
-    val tabs = listOf("Home", "Category", " Products")
+    val tabs = listOf("Clothes", "Furniture", " Electronics", "Shoes", " Miscellaneous")
     val pagerState = rememberPagerState(0)
     val scope = rememberCoroutineScope()
 
@@ -32,13 +34,13 @@ fun Tabs(paddingValues: PaddingValues) {
             .padding(paddingValues = paddingValues)
             .fillMaxWidth()
     ) {
-        TabRow(
+        ScrollableTabRow(
             selectedTabIndex = pagerState.currentPage,
             contentColor = Color.Black,
-            backgroundColor = Color.White
+            containerColor = Color.White
         ) {
             tabs.forEachIndexed { index, title ->
-                Tab(text = { Text(title) },
+                Tab(text = { Text(title, overflow = TextOverflow.Ellipsis)},
                     selected = pagerState.currentPage == index,
                     onClick = { scope.launch { pagerState.animateScrollToPage(index) } }
                 )
@@ -50,6 +52,8 @@ fun Tabs(paddingValues: PaddingValues) {
                 0 -> HomeRoute()
                 1 -> CategoryRoute()
                 2 -> ProductsRoute()
+                3 -> ProductsRoute()
+                4 -> ProductsRoute()
             }
 
         }

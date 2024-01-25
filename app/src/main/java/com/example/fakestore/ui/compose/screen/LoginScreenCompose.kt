@@ -23,9 +23,9 @@ fun LoginScreenCompose(
 
     val verticalGradientBackground = Brush.verticalGradient(
         colors = listOf(
-            tertiary,
+            tertiary_container,
             on_tertiary,
-            tertiary_container
+            tertiary
         )
     )
 
