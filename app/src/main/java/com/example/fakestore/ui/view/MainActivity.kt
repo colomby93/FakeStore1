@@ -18,6 +18,7 @@ import com.example.fakestore.ui.compose.screen.MainScreen
 import com.example.fakestore.ui.compose.theme.FakeStoreTheme
 import com.example.fakestore.ui.navigation.NavigationGraph
 import com.example.fakestore.ui.viewmodel.LoginViewModel
+import com.example.fakestore.ui.viewmodel.MainScreenViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -25,6 +26,7 @@ import kotlinx.coroutines.launch
 class MainActivity : ComponentActivity() {
 
     private val loginViewModel by viewModels<LoginViewModel>()
+    private val mainScreenViewModel by viewModels<MainScreenViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +51,7 @@ class MainActivity : ComponentActivity() {
                         .fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    NavigationGraph(loginViewModel)
+                    NavigationGraph(loginViewModel,mainScreenViewModel)
                 }
             }
         }
@@ -57,9 +59,4 @@ class MainActivity : ComponentActivity() {
 
 }
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview(){
-    MainScreen()
-}
 

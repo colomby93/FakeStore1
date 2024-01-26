@@ -1,14 +1,10 @@
 package com.example.fakestore.ui.compose.route
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import com.example.fakestore.ui.compose.screen.ClothesScreen
+import com.example.fakestore.ui.domain.model.Product
 
 @Composable
-fun ClothesRoute() {
-    ClothesScreen()
+fun ClothesRoute(productList: List<Product>) {
+    ClothesScreen(productList = productList)
 }

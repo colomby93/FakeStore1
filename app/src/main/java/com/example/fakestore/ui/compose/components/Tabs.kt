@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Tab
 import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.Text
@@ -16,6 +17,7 @@ import com.example.fakestore.ui.compose.route.FurnitureRoute
 import com.example.fakestore.ui.compose.route.ClothesRoute
 import com.example.fakestore.ui.compose.route.Electronics
 import com.example.fakestore.ui.compose.route.ShoesRoute
+import com.example.fakestore.ui.domain.model.Product
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
@@ -24,11 +26,10 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun Tabs(paddingValues: PaddingValues) {
+fun Tabs(paddingValues: PaddingValues,productList: List<Product>) {
     val tabs = listOf("Clothes", "Furniture", " Electronics", "Shoes", " Miscellaneous")
     val pagerState = rememberPagerState(0)
     val scope = rememberCoroutineScope()
-
     Column(
         modifier = Modifier
             .padding(paddingValues = paddingValues)
@@ -49,7 +50,7 @@ fun Tabs(paddingValues: PaddingValues) {
 
         HorizontalPager(count = tabs.size, state = pagerState) { index ->
             when (index) {
-                0 -> ClothesRoute()
+                0 -> ClothesRoute(productList)
                 1 -> FurnitureRoute()
                 2 -> Electronics()
                 3 -> ShoesRoute()

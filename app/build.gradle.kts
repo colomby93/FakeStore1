@@ -72,6 +72,8 @@ dependencies {
     //Tabs
     implementation ("com.google.accompanist:accompanist-pager: 0.28.0") // Pager
     implementation ("com.google.accompanist:accompanist-pager-indicators:0.28.0") // Pager Indicators
+    // AsyncImage
+    implementation("io.coil-kt:coil-compose:2.5.0")
 
 
     testImplementation("junit:junit:4.13.2")

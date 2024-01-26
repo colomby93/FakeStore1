@@ -23,12 +23,13 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.example.fakestore.ui.domain.model.Product
 import com.google.accompanist.pager.ExperimentalPagerApi
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalPagerApi::class)
 @Composable
-fun MainScreenHeader() {
+fun MainScreenHeader(productList: List<Product>) {
 
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
@@ -73,7 +74,7 @@ fun MainScreenHeader() {
                 )
             },
             content = {
-                Tabs(it)
+                Tabs(it,productList)
             },
             modifier = Modifier.fillMaxWidth()
         )

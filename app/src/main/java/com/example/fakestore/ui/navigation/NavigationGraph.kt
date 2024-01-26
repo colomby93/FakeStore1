@@ -7,9 +7,10 @@ import androidx.navigation.compose.rememberNavController
 import com.example.fakestore.ui.compose.route.MainScreenRoute
 import com.example.fakestore.ui.compose.route.LoginRoute
 import com.example.fakestore.ui.viewmodel.LoginViewModel
+import com.example.fakestore.ui.viewmodel.MainScreenViewModel
 
 @Composable
-fun NavigationGraph(loginViewModel: LoginViewModel) {
+fun NavigationGraph(loginViewModel: LoginViewModel, mainScreenViewModel: MainScreenViewModel) {
 
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = Screen.FirstRoute.route) {
@@ -17,7 +18,7 @@ fun NavigationGraph(loginViewModel: LoginViewModel) {
             LoginRoute(loginViewModel, navController = navController)
         }
         composable(Screen.FirstRoute.route) {
-            MainScreenRoute()
+            MainScreenRoute(mainScreenViewModel)
         }
     }
 
