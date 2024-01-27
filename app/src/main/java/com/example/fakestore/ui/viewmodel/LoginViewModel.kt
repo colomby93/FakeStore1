@@ -1,11 +1,8 @@
 package com.example.fakestore.ui.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.NavController
 import com.example.fakestore.ui.data.Repository
-import com.example.fakestore.ui.navigation.Screen
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,56 +19,51 @@ class LoginViewModel @Inject constructor(
 
     private var email: String = ""
     private var password: String = ""
-    private var errorLogin: Boolean = false
 
-    data class UiState(
-        val loading: Boolean = false,
-        val isErrorLogin: Boolean = false,
-    )
+    private val _state = MutableStateFlow(LoginState())
+    var state: StateFlow<LoginState> = _state
 
-    private val _state = MutableStateFlow(UiState())
-    var state: StateFlow<UiState> = _state
+    fun onEvent(loginEvent: LoginEvent) {
+        when (loginEvent) {
+            is LoginEvent.OnEmailChanged -> onEmailChanged(loginEvent.newEmail)
+            is LoginEvent.OnPasswordChanged -> onPasswordChanged(loginEvent.newPassword)
+            LoginEvent.OnLoginClicked -> doLogin()
+        }
+    }
 
-    fun onEmailChanged(email: String) {
+    private fun onEmailChanged(email: String) {
         this.email = email
-        Log.i("Changes: ", "Email: $email")
     }
 
-    fun onPasswordChanged(password: String) {
+    private fun onPasswordChanged(password: String) {
         this.password = password
-        Log.i("Changes: ", "Password: $password")
     }
 
-    fun doLogin(navController: NavController) {
+    private fun doLogin() {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 _state.update { it.copy(loading = true) }
                 repository.login(email, password).fold(
                     error = {
-                        _state.update { it.copy(isErrorLogin = true) }
+                        _state.update { it.copy(showError = true) }
                     },
                     success = {
-                        _state.update {
-                            it.copy(loading = false)
-                        }
-                        errorLogin = true
+                        _state.update { it.copy(loading = false) }
                     }
                 )
-            }
-            onLogin(navController)
-        }
-
-    }
-
-    private fun onLogin(navController: NavController) {
-        if (errorLogin){
-            navController.navigate(Screen.FirstRoute.route){
-                popUpTo(0){
-                    inclusive = true
-                }
             }
         }
     }
 
 }
 
+data class LoginState(
+    val loading: Boolean = false,
+    val showError: Boolean = false,
+)
+
+sealed class LoginEvent {
+    data class OnEmailChanged(val newEmail: String) : LoginEvent()
+    data class OnPasswordChanged(val newPassword: String) : LoginEvent()
+    data object OnLoginClicked : LoginEvent()
+}

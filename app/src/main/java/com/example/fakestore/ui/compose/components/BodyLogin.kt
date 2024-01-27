@@ -1,9 +1,7 @@
-@file:Suppress("UNUSED_EXPRESSION")
-
 package com.example.fakestore.ui.compose.components
 
 import android.widget.Toast
-import android.widget.Toast.*
+import android.widget.Toast.LENGTH_LONG
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -39,15 +37,14 @@ import com.example.fakestore.R
 import com.example.fakestore.ui.compose.theme.light_grey
 import com.example.fakestore.ui.compose.theme.tertiary
 import com.example.fakestore.ui.compose.theme.tertiary_container
-
+import com.example.fakestore.ui.viewmodel.LoginEvent
+import com.example.fakestore.ui.viewmodel.LoginState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginForm(
-    onEmailChanged: (String) -> Unit,
-    onPasswordChanged: (String) -> Unit,
-    onLoginClicked: () -> Unit,
-    isErrorLogin: Boolean
+    state: LoginState,
+    onEvent: (LoginEvent) -> Unit,
 ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -70,14 +67,14 @@ fun LoginForm(
             value = email,
             onValueChange = {
                 email = it
-                onEmailChanged(it)
+                onEvent(LoginEvent.OnEmailChanged(it))
             },
             label = { Text(text = "Address email", color = Color.White) },
 
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Password
             ),
-            isError = isErrorLogin,
+            isError = state.showError,
             singleLine = true,
             modifier = Modifier
                 .fillMaxWidth()
@@ -90,7 +87,7 @@ fun LoginForm(
             value = password,
             onValueChange = {
                 password = it
-                onPasswordChanged(it)
+                onEvent(LoginEvent.OnEmailChanged(it))
             },
             label = { Text(text = "Password", color = Color.White) },
             trailingIcon = {
@@ -98,14 +95,16 @@ fun LoginForm(
                     passwordVisibility = !passwordVisibility
                 }) {
                     Icon(
-                        painter = icon, contentDescription = "Visibility Icon", tint = tertiary_container
+                        painter = icon,
+                        contentDescription = "Visibility Icon",
+                        tint = tertiary_container
                     )
                 }
             },
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Password
             ),
-            isError = isErrorLogin,
+            isError = state.showError,
             visualTransformation = if (passwordVisibility) VisualTransformation.None
             else PasswordVisualTransformation(),
             singleLine = true,
@@ -114,7 +113,7 @@ fun LoginForm(
                 .padding(20.dp, top = 0.dp, end = 20.dp)
         )
         Button(
-            onClick = { onLoginClicked() },
+            onClick = { onEvent(LoginEvent.OnLoginClicked) },
             shape = RoundedCornerShape(2.dp),
             modifier = Modifier
                 .fillMaxWidth()
@@ -125,8 +124,8 @@ fun LoginForm(
             Text(text = "Login in ", color = Color.White)
         }
     }
-    if (isErrorLogin) {
-        Toast.makeText(context, "Email o password incorrect", Toast.LENGTH_LONG).show()
+    if (state.showError) {
+        Toast.makeText(context, "Email o password incorrect", LENGTH_LONG).show()
     }
 
 }
