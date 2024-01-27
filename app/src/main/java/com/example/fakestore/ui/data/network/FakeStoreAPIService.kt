@@ -7,14 +7,14 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface FakeStoreAPIService {
     @POST("auth/login/")
     suspend fun login(@Body loginDto: LoginDto): Response<AuthLoginDto>
 
-    @GET("products/?categoryId={productId}")
-    suspend fun getProductsForCategory(@Path("productId") productId: String): Response<ProductForCategoryDto>
+    @GET("products")
+    suspend fun getProductsForCategory(@Query("categoryId") categoryId: String): Response<ProductForCategoryDto>
 
 
 }

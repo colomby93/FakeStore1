@@ -51,7 +51,7 @@ fun Tabs(paddingValues: PaddingValues,productList: List<Product>) {
         HorizontalPager(count = tabs.size, state = pagerState) { index ->
             when (index) {
                 0 -> ClothesRoute(productList)
-                1 -> FurnitureRoute()
+                1 -> FurnitureRoute(productList)
                 2 -> Electronics()
                 3 -> ShoesRoute()
                 4 -> Electronics()

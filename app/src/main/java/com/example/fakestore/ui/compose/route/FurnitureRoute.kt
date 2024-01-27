@@ -10,12 +10,12 @@ import androidx.compose.ui.graphics.Color
 import com.example.fakestore.ui.domain.model.Product
 
 @Composable
-fun FurnitureRoute() {
+fun FurnitureRoute(product: List<Product>) {
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.Yellow)
     ){
-        Text(text = "Hola")
+        Text(text = product.map { it.title }.toString())
     }
 }

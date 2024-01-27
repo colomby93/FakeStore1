@@ -20,8 +20,8 @@ class CommonRepository @Inject constructor(
         }
     }
 
-    override suspend fun getProductForCategory(productId: String): Either<FakeStoreError, List<Product>> {
-        return when (val productResponse = networkDatasource.getProductsForCategory(productId)) {
+    override suspend fun getProductForCategory(categoryId: String): Either<FakeStoreError, List<Product>> {
+        return when (val productResponse = networkDatasource.getProductsForCategory(categoryId)) {
             is Either.Left -> Either.Left(FakeStoreError.Network)
             is Either.Right -> productResponse
         }

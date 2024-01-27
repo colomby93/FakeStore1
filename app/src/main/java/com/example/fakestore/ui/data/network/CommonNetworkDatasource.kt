@@ -12,8 +12,7 @@ class CommonNetworkDatasource @Inject constructor(
 ) : NetworkDatasource {
 
     override suspend fun login(
-        email: String,
-        password: String
+        email: String, password: String
     ): Either<FakeStoreError, AuthLogin> {
         return try {
             val loginDto = LoginDto(email, password)
@@ -23,12 +22,12 @@ class CommonNetworkDatasource @Inject constructor(
         }
     }
 
-    override suspend fun getProductsForCategory(productId: String): Either<FakeStoreError, List<Product>> {
+    override suspend fun getProductsForCategory(categoryId: String): Either<FakeStoreError, List<Product>> {
         return try {
-            Either.Right(
-                fakeStoreAPIService.getProductsForCategory(productId).body()!!
-                    .map { it.toModelCategory() })
+            Either.Right(fakeStoreAPIService.getProductsForCategory(categoryId).body()!!
+                .map { it.toModelCategory() })
         } catch (e: Exception) {
+            println(message = "error")
             Either.Left(FakeStoreError.Network)
         }
     }

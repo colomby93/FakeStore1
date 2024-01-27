@@ -27,7 +27,7 @@ import com.example.fakestore.ui.domain.model.Product
 import com.google.accompanist.pager.ExperimentalPagerApi
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalPagerApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreenHeader(productList: List<Product>) {
 

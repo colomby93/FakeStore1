@@ -1,5 +1,6 @@
 package com.example.fakestore.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fakestore.ui.data.Repository
@@ -24,13 +25,16 @@ class MainScreenViewModel @Inject constructor(private val repository: Repository
     private val _state = MutableStateFlow(UIState())
     var state: StateFlow<UIState> = _state
 
-    fun getProductForCategory(productId: String) {
+    private var listProduct = emptyList<Product>()
+
+    fun getProductForCategory(categoryId: String) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 _state.update { it.copy(loading = true) }
-                repository.getProductForCategory(productId).fold(
-                    error = {},
+                repository.getProductForCategory(categoryId).fold(
+                    error = { Log.e("Fallo peticion de red", "Fallo de red") },
                     success = { productList ->
+                        listProduct = productList
                         _state.update {
                             it.copy(
                                 productList = productList,

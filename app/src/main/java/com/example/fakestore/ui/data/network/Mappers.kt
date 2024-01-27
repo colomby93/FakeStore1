@@ -1,7 +1,6 @@
 package com.example.fakestore.ui.data.network
 
 import com.example.fakestore.ui.data.network.model.AuthLoginDto
-import com.example.fakestore.ui.data.network.model.Category
 import com.example.fakestore.ui.data.network.model.ProductForCategoryDtoItem
 import com.example.fakestore.ui.domain.model.AuthLogin
 import com.example.fakestore.ui.domain.model.Product
