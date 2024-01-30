@@ -1,8 +1,11 @@
 package com.example.fakestore.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
 import com.example.fakestore.ui.data.Repository
+import com.example.fakestore.ui.navigation.Screen
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,15 +22,16 @@ class LoginViewModel @Inject constructor(
 
     private var email: String = ""
     private var password: String = ""
+    private var onLogin: Boolean = false
 
     private val _state = MutableStateFlow(LoginState())
     var state: StateFlow<LoginState> = _state
 
-    fun onEvent(loginEvent: LoginEvent) {
+    fun onEvent(loginEvent: LoginEvent, navController: NavController) {
         when (loginEvent) {
             is LoginEvent.OnEmailChanged -> onEmailChanged(loginEvent.newEmail)
             is LoginEvent.OnPasswordChanged -> onPasswordChanged(loginEvent.newPassword)
-            LoginEvent.OnLoginClicked -> doLogin()
+            LoginEvent.OnLoginClicked -> doLogin(navController = navController)
         }
     }
 
@@ -39,22 +43,35 @@ class LoginViewModel @Inject constructor(
         this.password = password
     }
 
-    private fun doLogin() {
+    private fun doLogin(navController: NavController) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 _state.update { it.copy(loading = true) }
                 repository.login(email, password).fold(
                     error = {
+                        Log.i("Error Login", "Ha fallado la petición")
                         _state.update { it.copy(showError = true) }
                     },
                     success = {
+                        onLogin = true
                         _state.update { it.copy(loading = false) }
                     }
                 )
             }
+            onLogin(navController = navController)
         }
     }
 
+    private fun onLogin(navController: NavController) {
+        if (onLogin) {
+            navController.navigate(Screen.FirstRoute.route) {
+                popUpTo(0) {
+                    inclusive = true
+                }
+            }
+        }
+
+    }
 }
 
 data class LoginState(

@@ -87,7 +87,7 @@ fun LoginForm(
             value = password,
             onValueChange = {
                 password = it
-                onEvent(LoginEvent.OnEmailChanged(it))
+                onEvent(LoginEvent.OnPasswordChanged(it))
             },
             label = { Text(text = "Password", color = Color.White) },
             trailingIcon = {
