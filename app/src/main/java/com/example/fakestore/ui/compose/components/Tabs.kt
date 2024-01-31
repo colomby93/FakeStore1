@@ -1,5 +1,6 @@
 package com.example.fakestore.ui.compose.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,6 +18,7 @@ import com.example.fakestore.ui.compose.screen.ElectronicScreen
 import com.example.fakestore.ui.compose.screen.FurnitureScreen
 import com.example.fakestore.ui.compose.screen.MiscellaneousScreen
 import com.example.fakestore.ui.compose.screen.ShoesScreen
+import com.example.fakestore.ui.compose.theme.light_grey_2
 import com.example.fakestore.ui.domain.model.Product
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
@@ -41,6 +43,7 @@ fun Tabs(
         modifier = Modifier
             .padding(paddingValues = paddingValues)
             .fillMaxWidth()
+            .background(light_grey_2)
     ) {
         ScrollableTabRow(
             selectedTabIndex = pagerState.currentPage,

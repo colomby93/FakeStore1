@@ -15,5 +15,7 @@ val on_tertiary = Color(0xFFD6ABB8)
 val tertiary_container = Color(0xFFFFD8E4)
 val light_grey = Color(0xFF6F6C6C)
 
+val light_grey_2 = Color(0xFFF5F3F3)
+
 
 
