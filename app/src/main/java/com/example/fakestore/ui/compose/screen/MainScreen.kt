@@ -5,6 +5,6 @@ import com.example.fakestore.ui.compose.components.MainScreenHeader
 import com.example.fakestore.ui.domain.model.Product
 
 @Composable
-fun MainScreen(productList: List<Product>) {
-    MainScreenHeader(productList = productList)
+fun MainScreen(productListClothes: List<Product>, productListFurniture: List<Product>) {
+    MainScreenHeader(productListClothes = productListClothes, productListFurniture = productListFurniture)
 }

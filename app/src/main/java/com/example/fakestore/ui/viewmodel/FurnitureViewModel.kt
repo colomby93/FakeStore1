@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fakestore.ui.data.Repository
-import com.example.fakestore.ui.domain.model.Category
 import com.example.fakestore.ui.domain.model.Product
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -16,46 +15,26 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class MainScreenViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
+class FurnitureViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
 
     data class UIState(
         val loading: Boolean = false,
-        val productList: List<Product> = emptyList(),
-        val categoryList: List<Category> = emptyList()
+        val productListFurniture: List<Product> = emptyList()
     )
 
     private val _state = MutableStateFlow(UIState())
     var state: StateFlow<UIState> = _state
 
-
     init {
         getProductForCategory()
     }
 
-    fun getCategories() {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                _state.update { it.copy(loading = true) }
-                repository.getCategory().fold(
-                    error = { Log.e("category request failed", "category request failed") },
-                    success = { categoryList ->
-                        _state.update {
-                            it.copy(
-                                categoryList = categoryList,
-                                loading = false
-                            )
-                        }
-                    }
-                )
-            }
-        }
-    }
 
     private fun getProductForCategory() {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 _state.update { it.copy(loading = true) }
-                repository.getProductForCategory(Companion.CLOTHES_ID).fold(
+                repository.getProductForCategory(FURNITURE_ID).fold(
                     error = {
                         Log.e(
                             "product request by category failed",
@@ -65,7 +44,7 @@ class MainScreenViewModel @Inject constructor(private val repository: Repository
                     success = { productList ->
                         _state.update {
                             it.copy(
-                                productList = productList,
+                                productListFurniture = productList,
                                 loading = false
                             )
                         }
@@ -76,14 +55,8 @@ class MainScreenViewModel @Inject constructor(private val repository: Repository
     }
 
     companion object {
-        private const val CLOTHES_ID = "1"
+        private const val FURNITURE_ID = "3"
     }
 
 }
-
-
-
-
-
-
 

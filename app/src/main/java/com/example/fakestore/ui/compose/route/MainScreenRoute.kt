@@ -5,14 +5,19 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.fakestore.ui.compose.screen.MainScreen
+import com.example.fakestore.ui.viewmodel.FurnitureViewModel
 import com.example.fakestore.ui.viewmodel.MainScreenViewModel
 
 
 @Composable
 fun MainScreenRoute(
-    viewModel: MainScreenViewModel = hiltViewModel()
+    viewModel: MainScreenViewModel = hiltViewModel(),
+    viewModelFurniture: FurnitureViewModel = hiltViewModel()
 ) {
-    viewModel.getProductForCategory("1")
-    val productList by viewModel.state.collectAsState()
-    MainScreen(productList = productList.productList)
+    val productListClothes by viewModel.state.collectAsState()
+    val productListFurniture by viewModelFurniture.state.collectAsState()
+    MainScreen(
+        productListClothes = productListClothes.productList,
+        productListFurniture = productListFurniture.productListFurniture
+    )
 }

@@ -3,6 +3,7 @@ package com.example.fakestore.ui.data
 import com.example.fakestore.ui.data.network.NetworkDatasource
 import com.example.fakestore.ui.data.preference.Preference
 import com.example.fakestore.ui.domain.Either
+import com.example.fakestore.ui.domain.model.Category
 import com.example.fakestore.ui.domain.model.FakeStoreError
 import com.example.fakestore.ui.domain.model.Product
 import com.example.fakestore.ui.domain.model.Success
@@ -17,6 +18,13 @@ class CommonRepository @Inject constructor(
             print(it.success)
             preference.token(it.success.accessToken)
             Either.Right(Success)
+        }
+    }
+
+    override suspend fun getCategory(): Either<FakeStoreError, List<Category>> {
+        return when (val categoryResponse = networkDatasource.getCategories()) {
+            is Either.Left -> Either.Left(FakeStoreError.Network)
+            is Either.Right -> categoryResponse
         }
     }
 
