@@ -9,12 +9,14 @@ fun MainScreen(
     productListClothes: List<Product>,
     productListFurniture: List<Product>,
     productListElectronic: List<Product>,
-    productListShoes: List<Product>
+    productListShoes: List<Product>,
+    productListviewModelMiscellaneous: List<Product>
 ) {
     MainScreenHeader(
         productListClothes = productListClothes,
         productListFurniture = productListFurniture,
         productListElectronic = productListElectronic,
-        productListShoes = productListShoes
+        productListShoes = productListShoes,
+        productListviewModelMiscellaneous = productListviewModelMiscellaneous
     )
 }

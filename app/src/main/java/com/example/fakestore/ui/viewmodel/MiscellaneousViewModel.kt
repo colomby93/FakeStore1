@@ -15,11 +15,12 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class ShoesViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
+class MiscellaneousViewModel @Inject constructor(private val repository: Repository): ViewModel(){
+
 
     data class UIState(
         val loading: Boolean = false,
-        val productListShoes: List<Product> = emptyList()
+        val productListMiscellaneous: List<Product> = emptyList()
     )
 
     private val _state = MutableStateFlow(UIState())
@@ -34,7 +35,7 @@ class ShoesViewModel @Inject constructor(private val repository: Repository) : V
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 _state.update { it.copy(loading = true) }
-                repository.getProductForCategory(SHOES_ID).fold(
+                repository.getProductForCategory(MISCELLANEOUS_ID).fold(
                     error = {
                         Log.e(
                             "product request by category failed",
@@ -44,7 +45,7 @@ class ShoesViewModel @Inject constructor(private val repository: Repository) : V
                     success = { productList ->
                         _state.update {
                             it.copy(
-                                productListShoes = productList,
+                                productListMiscellaneous = productList,
                                 loading = false
                             )
                         }
@@ -55,7 +56,7 @@ class ShoesViewModel @Inject constructor(private val repository: Repository) : V
     }
 
     companion object {
-        private const val SHOES_ID = "4"
+        private const val MISCELLANEOUS_ID = "5"
     }
 
 

@@ -34,7 +34,7 @@ class ElectronicViewModel @Inject constructor(private val repository: Repository
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 _state.update { it.copy(loading = true) }
-                repository.getProductForCategory(FURNITURE_ID).fold(
+                repository.getProductForCategory(ELECTRONIC_ID).fold(
                     error = {
                         Log.e(
                             "product request by category failed",
@@ -55,7 +55,7 @@ class ElectronicViewModel @Inject constructor(private val repository: Repository
     }
 
     companion object {
-        private const val FURNITURE_ID = "2"
+        private const val ELECTRONIC_ID = "2"
     }
 
 }

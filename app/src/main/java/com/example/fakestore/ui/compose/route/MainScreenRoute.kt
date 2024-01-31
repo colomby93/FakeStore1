@@ -8,6 +8,7 @@ import com.example.fakestore.ui.compose.screen.MainScreen
 import com.example.fakestore.ui.viewmodel.ElectronicViewModel
 import com.example.fakestore.ui.viewmodel.FurnitureViewModel
 import com.example.fakestore.ui.viewmodel.MainScreenViewModel
+import com.example.fakestore.ui.viewmodel.MiscellaneousViewModel
 import com.example.fakestore.ui.viewmodel.ShoesViewModel
 
 
@@ -16,16 +17,20 @@ fun MainScreenRoute(
     viewModel: MainScreenViewModel = hiltViewModel(),
     viewModelFurniture: FurnitureViewModel = hiltViewModel(),
     viewModelElectronic: ElectronicViewModel = hiltViewModel(),
-    viewModelShoes: ShoesViewModel = hiltViewModel()
+    viewModelShoes: ShoesViewModel = hiltViewModel(),
+    viewModelMiscellaneous: MiscellaneousViewModel = hiltViewModel()
+
 ) {
     val productListClothes by viewModel.state.collectAsState()
     val productListFurniture by viewModelFurniture.state.collectAsState()
     val productListElectronic by viewModelElectronic.state.collectAsState()
     val productListShoes by viewModelShoes.state.collectAsState()
+    val productListviewModelMiscellaneous by viewModelMiscellaneous.state.collectAsState()
     MainScreen(
         productListClothes = productListClothes.productList,
         productListFurniture = productListFurniture.productListFurniture,
         productListElectronic = productListElectronic.productListElectronic,
-        productListShoes = productListShoes.productListShoes
+        productListShoes = productListShoes.productListShoes,
+        productListviewModelMiscellaneous = productListviewModelMiscellaneous.productListMiscellaneous
     )
 }

@@ -32,7 +32,8 @@ fun MainScreenHeader(
     productListClothes: List<Product>,
     productListFurniture: List<Product>,
     productListElectronic: List<Product>,
-    productListShoes: List<Product>
+    productListShoes: List<Product>,
+    productListviewModelMiscellaneous: List<Product>
 ) {
 
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
@@ -78,7 +79,8 @@ fun MainScreenHeader(
                 productListClothes,
                 productListFurniture,
                 productListElectronic,
-                productListShoes
+                productListShoes,
+                productListviewModelMiscellaneous
             )
         }, modifier = Modifier.fillMaxWidth()
         )
