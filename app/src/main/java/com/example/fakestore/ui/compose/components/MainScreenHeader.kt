@@ -31,7 +31,8 @@ import kotlinx.coroutines.launch
 fun MainScreenHeader(
     productListClothes: List<Product>,
     productListFurniture: List<Product>,
-    productListElectronic: List<Product>
+    productListElectronic: List<Product>,
+    productListShoes: List<Product>
 ) {
 
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
@@ -72,7 +73,13 @@ fun MainScreenHeader(
                     .fillMaxWidth()
             )
         }, content = {
-            Tabs(it, productListClothes, productListFurniture, productListElectronic)
+            Tabs(
+                it,
+                productListClothes,
+                productListFurniture,
+                productListElectronic,
+                productListShoes
+            )
         }, modifier = Modifier.fillMaxWidth()
         )
     }

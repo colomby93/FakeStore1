@@ -8,11 +8,13 @@ import com.example.fakestore.ui.domain.model.Product
 fun MainScreen(
     productListClothes: List<Product>,
     productListFurniture: List<Product>,
-    productListElectronic: List<Product>
+    productListElectronic: List<Product>,
+    productListShoes: List<Product>
 ) {
     MainScreenHeader(
         productListClothes = productListClothes,
         productListFurniture = productListFurniture,
-        productListElectronic = productListElectronic
+        productListElectronic = productListElectronic,
+        productListShoes = productListShoes
     )
 }
