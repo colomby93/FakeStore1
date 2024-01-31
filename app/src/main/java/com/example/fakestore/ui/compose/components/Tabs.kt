@@ -13,8 +13,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import com.example.fakestore.ui.compose.route.ClothesRoute
-import com.example.fakestore.ui.compose.route.Electronics
+import com.example.fakestore.ui.compose.route.MiscellaneousRoute
 import com.example.fakestore.ui.compose.route.ShoesRoute
+import com.example.fakestore.ui.compose.screen.ElectronicScreen
 import com.example.fakestore.ui.compose.screen.FurnitureScreen
 import com.example.fakestore.ui.domain.model.Product
 import com.google.accompanist.pager.ExperimentalPagerApi
@@ -28,7 +29,8 @@ import kotlinx.coroutines.launch
 fun Tabs(
     paddingValues: PaddingValues,
     productList: List<Product>,
-    productListFurniture: List<Product>
+    productListFurniture: List<Product>,
+    productListElectronic: List<Product>
 ) {
     val tabs = listOf("Clothes", "Furniture", " Electronics", "Shoes", " Miscellaneous")
     val pagerState = rememberPagerState(0)
@@ -57,9 +59,9 @@ fun Tabs(
             when (index) {
                 0 -> ClothesRoute(productList)
                 1 -> FurnitureScreen(productListFurniture)
-                2 -> Electronics()
+                2 -> ElectronicScreen(productListElectronic)
                 3 -> ShoesRoute()
-                4 -> Electronics()
+                4 -> MiscellaneousRoute()
             }
 
         }

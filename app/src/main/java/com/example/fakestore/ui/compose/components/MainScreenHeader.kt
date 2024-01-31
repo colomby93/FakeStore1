@@ -28,54 +28,52 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreenHeader(productListClothes: List<Product>, productListFurniture: List<Product>) {
+fun MainScreenHeader(
+    productListClothes: List<Product>,
+    productListFurniture: List<Product>,
+    productListElectronic: List<Product>
+) {
 
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
     ModalNavigationDrawer(drawerContent = {
-        AppDrawer(
-            modifier = Modifier,
-            closeDrawer = { scope.launch { drawerState.close() } }
+        AppDrawer(modifier = Modifier, closeDrawer = { scope.launch { drawerState.close() } }
 
         )
     }, drawerState = drawerState) {
-        Scaffold(
-            topBar = {
-                TopAppBar(navigationIcon = {
-                    IconButton(onClick = {
-                        scope.launch { drawerState.open() }
-                    }, content = {
-                        Icon(
-                            imageVector = Icons.Filled.Menu,
-                            contentDescription = "Open dropdown menu"
-                        )
-                    })
+        Scaffold(topBar = {
+            TopAppBar(navigationIcon = {
+                IconButton(onClick = {
+                    scope.launch { drawerState.open() }
+                }, content = {
+                    Icon(
+                        imageVector = Icons.Filled.Menu,
+                        contentDescription = "Open dropdown menu"
+                    )
+                })
 
 
-                }, title = { Text(text = "Fake store") }, actions = {
-                    IconButton(onClick = { }) {
-                        Icon(imageVector = Icons.Filled.Favorite, contentDescription = "Favorite")
-                    }
-                    IconButton(onClick = { }) {
-                        Icon(imageVector = Icons.Filled.Search, contentDescription = "Search")
-                    }
-                    IconButton(onClick = { }) {
-                        Icon(imageVector = Icons.Filled.MoreVert, contentDescription = "More")
-                    }
+            }, title = { Text(text = "Fake store") }, actions = {
+                IconButton(onClick = { }) {
+                    Icon(imageVector = Icons.Filled.Favorite, contentDescription = "Favorite")
                 }
-                )
-                Divider(
-                    Modifier
-                        .background(Color.LightGray)
-                        .height(2.dp)
-                        .fillMaxWidth()
-                )
-            },
-            content = {
-                Tabs(it, productListClothes,productListFurniture)
-            },
-            modifier = Modifier.fillMaxWidth()
+                IconButton(onClick = { }) {
+                    Icon(imageVector = Icons.Filled.Search, contentDescription = "Search")
+                }
+                IconButton(onClick = { }) {
+                    Icon(imageVector = Icons.Filled.MoreVert, contentDescription = "More")
+                }
+            })
+            Divider(
+                Modifier
+                    .background(Color.LightGray)
+                    .height(2.dp)
+                    .fillMaxWidth()
+            )
+        }, content = {
+            Tabs(it, productListClothes, productListFurniture, productListElectronic)
+        }, modifier = Modifier.fillMaxWidth()
         )
     }
 
