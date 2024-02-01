@@ -32,24 +32,6 @@ class MainScreenViewModel @Inject constructor(private val repository: Repository
         getProductForCategory()
     }
 
-    fun getCategories() {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                _state.update { it.copy(loading = true) }
-                repository.getCategory().fold(
-                    error = { Log.e("category request failed", "category request failed") },
-                    success = { categoryList ->
-                        _state.update {
-                            it.copy(
-                                categoryList = categoryList,
-                                loading = false
-                            )
-                        }
-                    }
-                )
-            }
-        }
-    }
 
     private fun getProductForCategory() {
         viewModelScope.launch {

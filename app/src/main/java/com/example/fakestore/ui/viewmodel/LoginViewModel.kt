@@ -64,7 +64,7 @@ class LoginViewModel @Inject constructor(
 
     private fun onLogin(navController: NavController) {
         if (onLogin) {
-            navController.navigate(Screen.FirstRoute.route) {
+            navController.navigate(Screen.MainScreen.route) {
                 popUpTo(0) {
                     inclusive = true
                 }

@@ -1,6 +1,7 @@
 package com.example.fakestore.ui.navigation
 
-sealed class Screen (val route: String){
+sealed class Screen(val route: String) {
     data object Login : Screen(route = "login")
-    data object FirstRoute: Screen(route = "firstRoute")
+    data object MainScreen : Screen(route = "MainScreen")
+    data object DetailProduct : Screen(route = "DetailProduct")
 }

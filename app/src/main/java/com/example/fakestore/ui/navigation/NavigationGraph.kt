@@ -5,6 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.fakestore.ui.compose.route.DetailProductRoute
 import com.example.fakestore.ui.compose.route.LoginRoute
 import com.example.fakestore.ui.compose.route.MainScreenRoute
 
@@ -12,12 +13,15 @@ import com.example.fakestore.ui.compose.route.MainScreenRoute
 fun NavigationGraph(
     navController: NavHostController = rememberNavController()
 ) {
-    NavHost(navController = navController, startDestination = Screen.FirstRoute.route) {
+    NavHost(navController = navController, startDestination = Screen.DetailProduct.route) {
         composable(route = Screen.Login.route) {
             LoginRoute(navController = navController)
         }
-        composable(route = Screen.FirstRoute.route) {
+        composable(route = Screen.MainScreen.route) {
             MainScreenRoute()
+        }
+        composable(route = Screen.DetailProduct.route){
+            DetailProductRoute()
         }
     }
 
