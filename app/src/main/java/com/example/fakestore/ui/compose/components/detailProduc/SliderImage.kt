@@ -1,10 +1,11 @@
-package com.example.fakestore.ui.compose.components
+package com.example.fakestore.ui.compose.components.detailProduc
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -34,14 +35,15 @@ import kotlin.math.absoluteValue
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun SliderImage(product: List<Product>) {
+fun SliderImage(product: List<Product>, paddingValues: PaddingValues) {
     val pagerState = rememberPagerState(pageCount = {
         4
     })
     HorizontalPager(state = pagerState) { page ->
         Card(
             Modifier
-                .height(400.dp)
+                .height(500.dp)
+                .padding(paddingValues)
                 .wrapContentWidth()
                 .graphicsLayer {
                     val pageOffset = (
@@ -55,7 +57,7 @@ fun SliderImage(product: List<Product>) {
                         fraction = 1f - pageOffset.coerceIn(0f, 1f)
                     )
                 },
-            shape = RoundedCornerShape(0.dp)
+            shape = RoundedCornerShape(30.dp)
         ) {
             Box {
                 AsyncImage(
@@ -63,7 +65,7 @@ fun SliderImage(product: List<Product>) {
                         .fillMaxWidth()
                         .fillMaxHeight(),
                     model = ImageRequest.Builder(LocalContext.current)
-                        .data("https://i.imgur.com/KeqG6r4.jpeg")
+                        .data("https://i.imgur.com/qNOjJje.jpeg")
                         .crossfade(true)
                         .build(),
                     contentDescription = null,

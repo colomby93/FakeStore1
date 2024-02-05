@@ -1,4 +1,4 @@
-package com.example.fakestore.ui.compose.components
+package com.example.fakestore.ui.compose.components.mainScreen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

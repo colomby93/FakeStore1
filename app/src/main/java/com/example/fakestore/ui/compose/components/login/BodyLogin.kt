@@ -1,4 +1,4 @@
-package com.example.fakestore.ui.compose.components
+package com.example.fakestore.ui.compose.components.login
 
 import android.widget.Toast
 import android.widget.Toast.LENGTH_LONG

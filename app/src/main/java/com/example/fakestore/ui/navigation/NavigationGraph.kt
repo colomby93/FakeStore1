@@ -13,7 +13,7 @@ import com.example.fakestore.ui.compose.route.MainScreenRoute
 fun NavigationGraph(
     navController: NavHostController = rememberNavController()
 ) {
-    NavHost(navController = navController, startDestination = Screen.Login.route) {
+    NavHost(navController = navController, startDestination = Screen.DetailProduct.route) {
         composable(route = Screen.Login.route) {
             LoginRoute(navController = navController)
         }

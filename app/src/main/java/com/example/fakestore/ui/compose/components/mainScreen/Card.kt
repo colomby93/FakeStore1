@@ -1,4 +1,4 @@
-package com.example.fakestore.ui.compose.components
+package com.example.fakestore.ui.compose.components.mainScreen
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column

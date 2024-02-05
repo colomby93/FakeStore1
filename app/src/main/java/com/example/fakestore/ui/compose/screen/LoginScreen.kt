@@ -6,8 +6,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
-import com.example.fakestore.ui.compose.components.LoginForm
-import com.example.fakestore.ui.compose.components.LoginHeader
+import com.example.fakestore.ui.compose.components.login.LoginForm
+import com.example.fakestore.ui.compose.components.login.LoginHeader
 import com.example.fakestore.ui.compose.theme.on_tertiary
 import com.example.fakestore.ui.compose.theme.tertiary
 import com.example.fakestore.ui.compose.theme.tertiary_container
