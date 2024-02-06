@@ -3,6 +3,8 @@ package com.example.fakestore.ui.compose.components.detailProduc
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ShoppingCart
@@ -42,7 +44,11 @@ fun ToolbarDetailProduct(product: ProductForId) {
                 }
             )
         }, content = {
-            Column(modifier = Modifier.padding(4.dp)) {
+            Column(
+                modifier = Modifier
+                    .padding(4.dp)
+                    .verticalScroll(rememberScrollState())
+            ) {
                 SliderImage(product = product, it)
                 BuyProduct(product = product)
             }
