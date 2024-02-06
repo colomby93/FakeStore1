@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fakestore.ui.data.Repository
 import com.example.fakestore.ui.domain.model.Category
-import com.example.fakestore.ui.domain.model.Product
+import com.example.fakestore.ui.domain.model.ProductForCategory
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,7 +20,7 @@ class MainScreenViewModel @Inject constructor(private val repository: Repository
 
     data class UIState(
         val loading: Boolean = false,
-        val productList: List<Product> = emptyList(),
+        val productForCategoryList: List<ProductForCategory> = emptyList(),
         val categoryList: List<Category> = emptyList()
     )
 
@@ -47,7 +47,7 @@ class MainScreenViewModel @Inject constructor(private val repository: Repository
                     success = { productList ->
                         _state.update {
                             it.copy(
-                                productList = productList,
+                                productForCategoryList = productList,
                                 loading = false
                             )
                         }

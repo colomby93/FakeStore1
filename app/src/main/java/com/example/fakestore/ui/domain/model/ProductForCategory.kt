@@ -2,7 +2,7 @@ package com.example.fakestore.ui.domain.model
 
 import com.example.fakestore.ui.data.network.model.Category
 
-data class Product(
+data class ProductForCategory(
     val category: Category,
     val creationAt: String,
     val description: String,

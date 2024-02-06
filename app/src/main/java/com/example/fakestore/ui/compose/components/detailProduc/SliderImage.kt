@@ -30,15 +30,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.example.fakestore.ui.domain.model.Product
+import com.example.fakestore.ui.domain.model.ProductForId
 import kotlin.math.absoluteValue
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun SliderImage(product: List<Product>, paddingValues: PaddingValues) {
+fun SliderImage(product: ProductForId, paddingValues: PaddingValues) {
     val pagerState = rememberPagerState(pageCount = {
-        4
+        product.images.size
     })
+
     HorizontalPager(state = pagerState) { page ->
         Card(
             Modifier
@@ -65,12 +66,14 @@ fun SliderImage(product: List<Product>, paddingValues: PaddingValues) {
                         .fillMaxWidth()
                         .fillMaxHeight(),
                     model = ImageRequest.Builder(LocalContext.current)
-                        .data("https://i.imgur.com/qNOjJje.jpeg")
+                        .data(product.images[page % product.images.size])
                         .crossfade(true)
                         .build(),
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                 )
+
+
                 Row(
                     Modifier
                         .height(400.dp)

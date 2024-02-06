@@ -9,12 +9,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.example.fakestore.ui.domain.model.Product
+import com.example.fakestore.ui.domain.model.ProductForCategory
 
 @Composable
-fun ImageProduct(product: Product) {
+fun ImageProduct(productForCategory: ProductForCategory) {
     AsyncImage(
-        model = ImageRequest.Builder(LocalContext.current).data(product.images.first())
+        model = ImageRequest.Builder(LocalContext.current).data(productForCategory.images.first())
             .crossfade(true)
             .build(),
         contentDescription = null,

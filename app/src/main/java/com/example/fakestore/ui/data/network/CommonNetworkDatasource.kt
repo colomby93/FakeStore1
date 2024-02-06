@@ -5,7 +5,8 @@ import com.example.fakestore.ui.domain.Either
 import com.example.fakestore.ui.domain.model.AuthLogin
 import com.example.fakestore.ui.domain.model.Category
 import com.example.fakestore.ui.domain.model.FakeStoreError
-import com.example.fakestore.ui.domain.model.Product
+import com.example.fakestore.ui.domain.model.ProductForCategory
+import com.example.fakestore.ui.domain.model.ProductForId
 import javax.inject.Inject
 
 class CommonNetworkDatasource @Inject constructor(
@@ -32,12 +33,22 @@ class CommonNetworkDatasource @Inject constructor(
         }
     }
 
-    override suspend fun getProductsForCategory(categoryId: String): Either<FakeStoreError, List<Product>> {
+    override suspend fun getProductsForCategory(categoryId: String): Either<FakeStoreError, List<ProductForCategory>> {
         return try {
             Either.Right(fakeStoreAPIService.getProductsForCategory(categoryId).body()!!
                 .map { it.toModelCategory() })
         } catch (e: Exception) {
-            println(message = "error")
+            Either.Left(FakeStoreError.Network)
+        }
+    }
+
+    override suspend fun getProductForId(productForId: String): Either<FakeStoreError, ProductForId> {
+        return try {
+            Either.Right(
+                fakeStoreAPIService.getProductForId(productForId).body()!!
+                    .toModelProductId()
+            )
+        } catch (e: Exception) {
             Either.Left(FakeStoreError.Network)
         }
     }

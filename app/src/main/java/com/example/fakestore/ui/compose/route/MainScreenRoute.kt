@@ -27,10 +27,10 @@ fun MainScreenRoute(
     val productListShoes by viewModelShoes.state.collectAsState()
     val productListviewModelMiscellaneous by viewModelMiscellaneous.state.collectAsState()
     MainScreen(
-        productListClothes = productListClothes.productList,
-        productListFurniture = productListFurniture.productListFurniture,
-        productListElectronic = productListElectronic.productListElectronic,
-        productListShoes = productListShoes.productListShoes,
-        productListviewModelMiscellaneous = productListviewModelMiscellaneous.productListMiscellaneous
+        productForCategoryListClothes = productListClothes.productForCategoryList,
+        productForCategoryListFurniture = productListFurniture.productForCategoryListFurniture,
+        productForCategoryListElectronic = productListElectronic.productForCategoryListElectronic,
+        productForCategoryListShoes = productListShoes.productForCategoryListShoes,
+        productForCategoryListviewModelMiscellaneous = productListviewModelMiscellaneous.productForCategoryListMiscellaneous
     )
 }

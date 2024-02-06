@@ -32,9 +32,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.fakestore.ui.domain.model.ProductForId
 
 @Composable
-fun BuyProduct() {
+fun BuyProduct(product: ProductForId) {
     var expanded by remember { mutableStateOf(false) }
     var sizeSelected by remember { mutableStateOf("S") }
     val itemsSize = listOf("S", "M", "L", "XL", "XXL")
@@ -49,13 +50,15 @@ fun BuyProduct() {
     ) {
         Spacer(modifier = Modifier.height(15.dp))
 
-        Text(text = "500")
+        Text(text = product.price.toString() + " €")
 
         Spacer(modifier = Modifier.height(15.dp))
 
-        Text(text = "Afsfasdfasdfa")
+        Text(text = product.title)
 
         Spacer(modifier = Modifier.height(15.dp))
+
+        Text(text = product.description)
 
         Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
             Button(

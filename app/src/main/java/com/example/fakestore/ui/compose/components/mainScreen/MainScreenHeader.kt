@@ -23,17 +23,17 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.fakestore.ui.domain.model.Product
+import com.example.fakestore.ui.domain.model.ProductForCategory
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreenHeader(
-    productListClothes: List<Product>,
-    productListFurniture: List<Product>,
-    productListElectronic: List<Product>,
-    productListShoes: List<Product>,
-    productListviewModelMiscellaneous: List<Product>
+    productForCategoryListClothes: List<ProductForCategory>,
+    productForCategoryListFurniture: List<ProductForCategory>,
+    productForCategoryListElectronic: List<ProductForCategory>,
+    productForCategoryListShoes: List<ProductForCategory>,
+    productForCategoryListviewModelMiscellaneous: List<ProductForCategory>
 ) {
 
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
@@ -76,11 +76,11 @@ fun MainScreenHeader(
         }, content = {
             Tabs(
                 it,
-                productListClothes,
-                productListFurniture,
-                productListElectronic,
-                productListShoes,
-                productListviewModelMiscellaneous
+                productForCategoryListClothes,
+                productForCategoryListFurniture,
+                productForCategoryListElectronic,
+                productForCategoryListShoes,
+                productForCategoryListviewModelMiscellaneous
             )
         }, modifier = Modifier.fillMaxWidth()
         )

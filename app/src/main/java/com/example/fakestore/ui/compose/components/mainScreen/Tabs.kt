@@ -19,7 +19,7 @@ import com.example.fakestore.ui.compose.screen.FurnitureScreen
 import com.example.fakestore.ui.compose.screen.MiscellaneousScreen
 import com.example.fakestore.ui.compose.screen.ShoesScreen
 import com.example.fakestore.ui.compose.theme.light_grey_2
-import com.example.fakestore.ui.domain.model.Product
+import com.example.fakestore.ui.domain.model.ProductForCategory
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
@@ -30,11 +30,11 @@ import kotlinx.coroutines.launch
 @Composable
 fun Tabs(
     paddingValues: PaddingValues,
-    productList: List<Product>,
-    productListFurniture: List<Product>,
-    productListElectronic: List<Product>,
-    productListShoes: List<Product>,
-    productListviewModelMiscellaneous: List<Product>
+    productForCategoryList: List<ProductForCategory>,
+    productForCategoryListFurniture: List<ProductForCategory>,
+    productForCategoryListElectronic: List<ProductForCategory>,
+    productForCategoryListShoes: List<ProductForCategory>,
+    productForCategoryListviewModelMiscellaneous: List<ProductForCategory>
 ) {
     val tabs = listOf("Clothes", "Furniture", " Electronics", "Shoes", " Miscellaneous")
     val pagerState = rememberPagerState(0)
@@ -62,11 +62,11 @@ fun Tabs(
 
         HorizontalPager(count = tabs.size, state = pagerState) { index ->
             when (index) {
-                0 -> ClothesRoute(productList)
-                1 -> FurnitureScreen(productListFurniture)
-                2 -> ElectronicScreen(productListElectronic)
-                3 -> ShoesScreen(productListShoes)
-                4 -> MiscellaneousScreen(productListviewModelMiscellaneous)
+                0 -> ClothesRoute(productForCategoryList)
+                1 -> FurnitureScreen(productForCategoryListFurniture)
+                2 -> ElectronicScreen(productForCategoryListElectronic)
+                3 -> ShoesScreen(productForCategoryListShoes)
+                4 -> MiscellaneousScreen(productForCategoryListviewModelMiscellaneous)
             }
 
         }

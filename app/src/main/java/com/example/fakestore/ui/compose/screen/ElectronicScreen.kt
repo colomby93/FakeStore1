@@ -2,9 +2,9 @@ package com.example.fakestore.ui.compose.screen
 
 import androidx.compose.runtime.Composable
 import com.example.fakestore.ui.compose.components.mainScreen.ItemProduct
-import com.example.fakestore.ui.domain.model.Product
+import com.example.fakestore.ui.domain.model.ProductForCategory
 
 @Composable
-fun ElectronicScreen(productListElectronic: List<Product>) {
-    ItemProduct(productList = productListElectronic)
+fun ElectronicScreen(productForCategoryListElectronic: List<ProductForCategory>) {
+    ItemProduct(productForCategoryList = productForCategoryListElectronic)
 }

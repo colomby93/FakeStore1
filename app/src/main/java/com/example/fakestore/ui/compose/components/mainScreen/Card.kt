@@ -23,11 +23,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.fakestore.ui.domain.model.Product
+import com.example.fakestore.ui.domain.model.ProductForCategory
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CardProduct(product: Product) {
+fun CardProduct(productForCategory: ProductForCategory) {
     Column(modifier = Modifier.padding(10.dp)) {
         Card(
             onClick = { TODO() },
@@ -40,7 +40,7 @@ fun CardProduct(product: Product) {
             colors = CardDefaults.cardColors(Color.LightGray)
 
         ) {
-            ImageProduct(product = product)
+            ImageProduct(productForCategory = productForCategory)
             Spacer(modifier = Modifier.size(5.dp))
             Row(
                 modifier = Modifier
@@ -48,7 +48,7 @@ fun CardProduct(product: Product) {
                     .padding(8.dp)
             ) {
                 Text(
-                    text = "Price = " + product.price,
+                    text = "Price = " + productForCategory.price,
                     modifier = Modifier.weight(1f)
                 )
                 Icon(
@@ -57,7 +57,7 @@ fun CardProduct(product: Product) {
                     tint = Color.Red
                 )
             }
-            Text(text = product.title, modifier = Modifier.padding(8.dp))
+            Text(text = productForCategory.title, modifier = Modifier.padding(8.dp))
 
 
         }
@@ -66,10 +66,10 @@ fun CardProduct(product: Product) {
 }
 
 @Composable
-fun ItemProduct(productList: List<Product>) {
+fun ItemProduct(productForCategoryList: List<ProductForCategory>) {
     LazyColumn(content = {
-        items(productList) { product ->
-            CardProduct(product = product)
+        items(productForCategoryList) { product ->
+            CardProduct(productForCategory = product)
         }
     })
 }

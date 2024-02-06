@@ -4,10 +4,12 @@ import com.example.fakestore.ui.data.network.model.AuthLoginDto
 import com.example.fakestore.ui.data.network.model.CategoryDto
 import com.example.fakestore.ui.data.network.model.LoginDto
 import com.example.fakestore.ui.data.network.model.ProductForCategoryDto
+import com.example.fakestore.ui.data.network.model.ProductForIdDto
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface FakeStoreAPIService {
@@ -19,6 +21,9 @@ interface FakeStoreAPIService {
 
     @GET("products")
     suspend fun getProductsForCategory(@Query("categoryId") categoryId: String): Response<ProductForCategoryDto>
+
+    @GET("products/{productId}")
+    suspend fun getProductForId(@Path("productId") productId: String): Response<ProductForIdDto>
 
 
 }
