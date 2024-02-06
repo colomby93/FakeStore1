@@ -40,72 +40,75 @@ fun SliderImage(product: ProductForId, paddingValues: PaddingValues) {
         product.images.size
     })
 
-    HorizontalPager(state = pagerState) { page ->
-        Card(
-            Modifier
-                .height(500.dp)
-                .padding(paddingValues)
-                .wrapContentWidth()
-                .graphicsLayer {
-                    val pageOffset = (
-                            (pagerState.currentPage - page) + pagerState
-                                .currentPageOffsetFraction
-                            ).absoluteValue
+    Box(contentAlignment = Alignment.BottomCenter) {
+        HorizontalPager(state = pagerState) { page ->
+            Card(
+                Modifier
+                    .height(500.dp)
+                    .padding(paddingValues)
+                    .wrapContentWidth()
+                    .graphicsLayer {
+                        val pageOffset = (
+                                (pagerState.currentPage - page) + pagerState
+                                    .currentPageOffsetFraction
+                                ).absoluteValue
 
-                    alpha = lerp(
-                        start = 0.5f,
-                        stop = 1f,
-                        fraction = 1f - pageOffset.coerceIn(0f, 1f)
-                    )
-                },
-            shape = RoundedCornerShape(30.dp)
-        ) {
-            Box {
-                AsyncImage(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .fillMaxHeight(),
-                    model = ImageRequest.Builder(LocalContext.current)
-                        .data(product.images[page % product.images.size])
-                        .crossfade(true)
-                        .build(),
-                    contentDescription = null,
-                    contentScale = ContentScale.Crop,
-                )
-
-
-                Row(
-                    Modifier
-                        .height(400.dp)
-                        .fillMaxWidth()
-                        .padding(bottom = 8.dp),
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.Bottom
-                ) {
-                    repeat(pagerState.pageCount) { iteration ->
-                        val color =
-                            if (pagerState.currentPage == iteration) Color.Black else Color.White
-                        val colorBorder =
-                            if (pagerState.currentPage == iteration) Color.White else Color.LightGray
-                        val border =
-                            if (pagerState.currentPage == iteration) 3.dp else 1.dp
-                        val size =
-                            if (pagerState.currentPage == iteration) 20.dp else 10.dp
-                        val padding =
-                            if (pagerState.currentPage == iteration) 6.dp else 10.dp
-                        Box(
-                            modifier = Modifier
-                                .padding(padding)
-                                .clip(CircleShape)
-                                .background(color)
-                                .size(size)
-                                .border(border, colorBorder, shape = CircleShape)
+                        alpha = lerp(
+                            start = 0.5f,
+                            stop = 1f,
+                            fraction = 1f - pageOffset.coerceIn(0f, 1f)
                         )
-                    }
+                    },
+                shape = RoundedCornerShape(30.dp)
+            ) {
+                Box {
+                    AsyncImage(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .fillMaxHeight(),
+                        model = ImageRequest.Builder(LocalContext.current)
+                            .data(product.images[page % product.images.size])
+                            .crossfade(true)
+                            .build(),
+                        contentDescription = null,
+                        contentScale = ContentScale.Crop,
+                    )
+
+
                 }
 
             }
-
+        }
+        Row(
+            Modifier
+                .height(400.dp)
+                .fillMaxWidth()
+                .padding(bottom = 8.dp),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.Bottom
+        ) {
+            repeat(pagerState.pageCount) { iteration ->
+                val color =
+                    if (pagerState.currentPage == iteration) Color.Black else Color.White
+                val colorBorder =
+                    if (pagerState.currentPage == iteration) Color.White else Color.LightGray
+                val border =
+                    if (pagerState.currentPage == iteration) 3.dp else 1.dp
+                val size =
+                    if (pagerState.currentPage == iteration) 20.dp else 10.dp
+                val padding =
+                    if (pagerState.currentPage == iteration) 6.dp else 10.dp
+                Box(
+                    modifier = Modifier
+                        .padding(padding)
+                        .clip(CircleShape)
+                        .background(color)
+                        .size(size)
+                        .border(border, colorBorder, shape = CircleShape)
+                )
+            }
         }
     }
+
+
 }
