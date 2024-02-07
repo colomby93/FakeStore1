@@ -37,8 +37,7 @@ fun CardProduct(
     Column(modifier = Modifier.padding(10.dp)) {
         Card(
             onClick = {
-                onEvent(MainScreenEvent.OnProductClicked)
-                onEvent(MainScreenEvent.ProductId(productForCategory.id.toString()))
+                onEvent(MainScreenEvent.OnProductClicked(productForCategory.id.toString()))
             },
             shape = RoundedCornerShape(10.dp),
             modifier = Modifier

@@ -1,7 +1,9 @@
 package com.example.fakestore.ui.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import androidx.navigation.NavOptionsBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -24,17 +26,25 @@ fun NavigationGraph(
         }
         composable(
             route = Screen.DetailProduct.route,
-            arguments = listOf(navArgument(PRODUCT_ID){type = NavType.StringType})
+            arguments = listOf(navArgument(PRODUCT_ID) { type = NavType.StringType })
         ) { navBackStackEntry ->
             val productId = navBackStackEntry.arguments?.getString(PRODUCT_ID)
-            productId.let {
-                if (it != null) {
-                    DetailProductRoute(it)
-                }
+            if (productId != null) {
+                DetailProductRoute(productId)
             }
 
-
         }
+    }
+
+}
+
+fun NavController.navigate(
+    screen: Screen, args: Pair<String, String>? = null, builder: NavOptionsBuilder.() -> Unit = {}
+) {
+    if (args != null) {
+        navigate(screen.withArgs(args), builder)
+    } else {
+        navigate(screen.route, builder)
     }
 
 }

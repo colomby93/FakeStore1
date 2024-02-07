@@ -20,13 +20,12 @@ class ProductDetailViewModel @Inject constructor(private val repository: Reposit
     private val _state = MutableStateFlow(UIState())
     var state: StateFlow<UIState> = _state
 
-
     fun getProduct(productId: String) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 _state.update { it.copy(loading = true) }
                 repository.getProductForId(productId).fold(
-                    error = { Log.e("Error network", "Error network") },
+                    error = { Log.e("Error network", "Error network product for id") },
                     success = { product ->
                         _state.update { it.copy(product = product, loading = false) }
                     }
@@ -34,9 +33,7 @@ class ProductDetailViewModel @Inject constructor(private val repository: Reposit
             }
         }
     }
-
 }
-
 
 data class UIState(
     val loading: Boolean = false,

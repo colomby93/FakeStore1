@@ -15,6 +15,4 @@ fun DetailProductRoute(productId: String, viewModel: ProductDetailViewModel = hi
     Box {
         product.product?.let { DetailProductScreen(product = it) }
     }
-
-
 }
