@@ -9,7 +9,8 @@ import com.example.fakestore.ui.compose.screen.DetailProductScreen
 import com.example.fakestore.ui.viewmodel.ProductDetailViewModel
 
 @Composable
-fun DetailProductRoute(viewModel: ProductDetailViewModel = hiltViewModel()) {
+fun DetailProductRoute(productId: String, viewModel: ProductDetailViewModel = hiltViewModel()) {
+    viewModel.getProduct(productId)
     val product by viewModel.state.collectAsState()
     Box {
         product.product?.let { DetailProductScreen(product = it) }

@@ -20,11 +20,8 @@ class ProductDetailViewModel @Inject constructor(private val repository: Reposit
     private val _state = MutableStateFlow(UIState())
     var state: StateFlow<UIState> = _state
 
-    init {
-        getProduct("8")
-    }
 
-    private fun getProduct(productId: String) {
+    fun getProduct(productId: String) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 _state.update { it.copy(loading = true) }
