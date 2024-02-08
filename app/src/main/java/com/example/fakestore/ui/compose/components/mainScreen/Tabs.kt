@@ -20,6 +20,8 @@ import com.example.fakestore.ui.compose.screen.MiscellaneousScreen
 import com.example.fakestore.ui.compose.screen.ShoesScreen
 import com.example.fakestore.ui.compose.theme.light_grey_2
 import com.example.fakestore.ui.domain.model.ProductForCategory
+import com.example.fakestore.ui.viewmodel.MainScreenEvent
+import com.example.fakestore.ui.viewmodel.MainScreenViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
@@ -34,7 +36,9 @@ fun Tabs(
     productForCategoryListFurniture: List<ProductForCategory>,
     productForCategoryListElectronic: List<ProductForCategory>,
     productForCategoryListShoes: List<ProductForCategory>,
-    productForCategoryListviewModelMiscellaneous: List<ProductForCategory>
+    productForCategoryListviewModelMiscellaneous: List<ProductForCategory>,
+    state: MainScreenViewModel.UIState,
+    onEvent: (MainScreenEvent) -> Unit
 ) {
     val tabs = listOf("Clothes", "Furniture", " Electronics", "Shoes", " Miscellaneous")
     val pagerState = rememberPagerState(0)
@@ -62,11 +66,15 @@ fun Tabs(
 
         HorizontalPager(count = tabs.size, state = pagerState) { index ->
             when (index) {
-                0 -> ClothesRoute(productForCategoryList)
-                1 -> FurnitureScreen(productForCategoryListFurniture)
-                2 -> ElectronicScreen(productForCategoryListElectronic)
-                3 -> ShoesScreen(productForCategoryListShoes)
-                4 -> MiscellaneousScreen(productForCategoryListviewModelMiscellaneous)
+                0 -> ClothesRoute(productForCategoryList, state, onEvent)
+                1 -> FurnitureScreen(productForCategoryListFurniture, state, onEvent)
+                2 -> ElectronicScreen(productForCategoryListElectronic, state, onEvent)
+                3 -> ShoesScreen(productForCategoryListShoes, state, onEvent)
+                4 -> MiscellaneousScreen(
+                    productForCategoryListviewModelMiscellaneous,
+                    state,
+                    onEvent
+                )
             }
 
         }

@@ -24,6 +24,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.fakestore.ui.domain.model.ProductForCategory
+import com.example.fakestore.ui.viewmodel.MainScreenEvent
+import com.example.fakestore.ui.viewmodel.MainScreenViewModel
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -33,7 +35,9 @@ fun MainScreenHeader(
     productForCategoryListFurniture: List<ProductForCategory>,
     productForCategoryListElectronic: List<ProductForCategory>,
     productForCategoryListShoes: List<ProductForCategory>,
-    productForCategoryListviewModelMiscellaneous: List<ProductForCategory>
+    productForCategoryListviewModelMiscellaneous: List<ProductForCategory>,
+    state: MainScreenViewModel.UIState,
+    onEvent: (MainScreenEvent) -> Unit
 ) {
 
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
@@ -80,7 +84,9 @@ fun MainScreenHeader(
                 productForCategoryListFurniture,
                 productForCategoryListElectronic,
                 productForCategoryListShoes,
-                productForCategoryListviewModelMiscellaneous
+                productForCategoryListviewModelMiscellaneous,
+                state,
+                onEvent
             )
         }, modifier = Modifier.fillMaxWidth()
         )

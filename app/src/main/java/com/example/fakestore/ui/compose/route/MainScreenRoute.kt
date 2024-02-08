@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.example.fakestore.ui.compose.screen.MainScreen
 import com.example.fakestore.ui.viewmodel.ElectronicViewModel
 import com.example.fakestore.ui.viewmodel.FurnitureViewModel
@@ -18,7 +19,8 @@ fun MainScreenRoute(
     viewModelFurniture: FurnitureViewModel = hiltViewModel(),
     viewModelElectronic: ElectronicViewModel = hiltViewModel(),
     viewModelShoes: ShoesViewModel = hiltViewModel(),
-    viewModelMiscellaneous: MiscellaneousViewModel = hiltViewModel()
+    viewModelMiscellaneous: MiscellaneousViewModel = hiltViewModel(),
+    navController: NavController
 
 ) {
     val productListClothes by viewModel.state.collectAsState()
@@ -31,6 +33,7 @@ fun MainScreenRoute(
         productForCategoryListFurniture = productListFurniture.productForCategoryListFurniture,
         productForCategoryListElectronic = productListElectronic.productForCategoryListElectronic,
         productForCategoryListShoes = productListShoes.productForCategoryListShoes,
-        productForCategoryListviewModelMiscellaneous = productListviewModelMiscellaneous.productForCategoryListMiscellaneous
-    )
+        productForCategoryListviewModelMiscellaneous = productListviewModelMiscellaneous.productForCategoryListMiscellaneous,
+        state = viewModel.state.collectAsState().value
+    ) { viewModel.onEvent(it, navController) }
 }

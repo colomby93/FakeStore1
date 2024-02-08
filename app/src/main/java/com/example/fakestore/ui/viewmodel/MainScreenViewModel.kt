@@ -3,9 +3,13 @@ package com.example.fakestore.ui.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
 import com.example.fakestore.ui.data.Repository
 import com.example.fakestore.ui.domain.model.Category
 import com.example.fakestore.ui.domain.model.ProductForCategory
+import com.example.fakestore.ui.navigation.PRODUCT_ID
+import com.example.fakestore.ui.navigation.Screen
+import com.example.fakestore.ui.navigation.navigate
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,6 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MainScreenViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
 
+
     data class UIState(
         val loading: Boolean = false,
         val productForCategoryList: List<ProductForCategory> = emptyList(),
@@ -25,8 +30,17 @@ class MainScreenViewModel @Inject constructor(private val repository: Repository
     )
 
     private val _state = MutableStateFlow(UIState())
-    var state: StateFlow<UIState> = _state
+    val state: StateFlow<UIState> = _state
 
+    fun onEvent(mainScreenEvent: MainScreenEvent, navController: NavController) {
+        when (mainScreenEvent) {
+            is MainScreenEvent.OnProductClicked -> navigateToDetailProduct(
+                productId = mainScreenEvent.productId,
+                navController = navController
+            )
+
+        }
+    }
 
     init {
         getProductForCategory()
@@ -57,11 +71,24 @@ class MainScreenViewModel @Inject constructor(private val repository: Repository
         }
     }
 
+    private fun navigateToDetailProduct(productId: String, navController: NavController) {
+        navController.navigate(screen = Screen.DetailProduct, args = PRODUCT_ID to productId)
+    }
+
     companion object {
         private const val CLOTHES_ID = "1"
     }
 
 }
+
+sealed class MainScreenEvent {
+    data class OnProductClicked(val productId: String) : MainScreenEvent()
+
+
+}
+
+
+
 
 
 

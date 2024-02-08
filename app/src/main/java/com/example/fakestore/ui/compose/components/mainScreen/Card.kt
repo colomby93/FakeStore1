@@ -24,13 +24,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.fakestore.ui.domain.model.ProductForCategory
+import com.example.fakestore.ui.viewmodel.MainScreenEvent
+import com.example.fakestore.ui.viewmodel.MainScreenViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CardProduct(productForCategory: ProductForCategory) {
+fun CardProduct(
+    productForCategory: ProductForCategory,
+    state: MainScreenViewModel.UIState,
+    onEvent: (MainScreenEvent) -> Unit
+) {
     Column(modifier = Modifier.padding(10.dp)) {
         Card(
-            onClick = { TODO() },
+            onClick = {
+                onEvent(MainScreenEvent.OnProductClicked(productForCategory.id.toString()))
+            },
             shape = RoundedCornerShape(10.dp),
             modifier = Modifier
                 .width(400.dp)
@@ -66,10 +74,18 @@ fun CardProduct(productForCategory: ProductForCategory) {
 }
 
 @Composable
-fun ItemProduct(productForCategoryList: List<ProductForCategory>) {
+fun ItemProduct(
+    productForCategoryList: List<ProductForCategory>,
+    state: MainScreenViewModel.UIState,
+    onEvent: (MainScreenEvent) -> Unit
+) {
     LazyColumn(content = {
         items(productForCategoryList) { product ->
-            CardProduct(productForCategory = product)
+            CardProduct(
+                productForCategory = product,
+                state = state,
+                onEvent = onEvent
+            )
         }
     })
 }
