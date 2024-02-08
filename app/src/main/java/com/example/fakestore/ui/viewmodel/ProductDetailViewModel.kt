@@ -3,6 +3,7 @@ package com.example.fakestore.ui.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
 import com.example.fakestore.ui.data.Repository
 import com.example.fakestore.ui.domain.model.ProductForId
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,6 +21,12 @@ class ProductDetailViewModel @Inject constructor(private val repository: Reposit
     private val _state = MutableStateFlow(UIState())
     var state: StateFlow<UIState> = _state
 
+    fun onEvent(detailProduct: DetailProduct, navController: NavController) {
+        when (detailProduct) {
+            is DetailProduct.OnArrowBackClicked -> onArrowBack(navController = navController)
+        }
+    }
+
     fun getProduct(productId: String) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
@@ -33,9 +40,21 @@ class ProductDetailViewModel @Inject constructor(private val repository: Reposit
             }
         }
     }
+
+
+    private fun onArrowBack(navController: NavController) {
+        if (navController.previousBackStackEntry != null) {
+            navController.navigateUp()
+        }
+    }
 }
 
 data class UIState(
     val loading: Boolean = false,
     val product: ProductForId? = null
 )
+
+
+sealed class DetailProduct {
+    data object OnArrowBackClicked : DetailProduct()
+}

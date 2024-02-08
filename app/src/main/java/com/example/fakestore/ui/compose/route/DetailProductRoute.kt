@@ -5,14 +5,27 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.example.fakestore.ui.compose.screen.DetailProductScreen
 import com.example.fakestore.ui.viewmodel.ProductDetailViewModel
 
 @Composable
-fun DetailProductRoute(productId: String, viewModel: ProductDetailViewModel = hiltViewModel()) {
+fun DetailProductRoute(
+    productId: String,
+    viewModel: ProductDetailViewModel = hiltViewModel(),
+    navController: NavController
+) {
     viewModel.getProduct(productId)
     val product by viewModel.state.collectAsState()
+
     Box {
-        product.product?.let { DetailProductScreen(product = it) }
+        product.product?.let { product ->
+            DetailProductScreen(product = product) {
+                viewModel.onEvent(
+                    it,
+                    navController
+                )
+            }
+        }
     }
 }

@@ -30,7 +30,7 @@ fun NavigationGraph(
         ) { navBackStackEntry ->
             val productId = navBackStackEntry.arguments?.getString(PRODUCT_ID)
             if (productId != null) {
-                DetailProductRoute(productId)
+                DetailProductRoute(productId, navController = navController)
             }
 
         }

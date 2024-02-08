@@ -17,15 +17,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.fakestore.ui.domain.model.ProductForId
+import com.example.fakestore.ui.viewmodel.DetailProduct
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ToolbarDetailProduct(product: ProductForId) {
+fun ToolbarDetailProduct(product: ProductForId, onEvent: (DetailProduct) -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(navigationIcon = {
-                IconButton(onClick = { TODO() }, content = {
+                IconButton(onClick = { onEvent(DetailProduct.OnArrowBackClicked) }, content = {
                     Icon(
                         imageVector = Icons.Filled.ArrowBack,
                         contentDescription = "Open dropdown menu"
