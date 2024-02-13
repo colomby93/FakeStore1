@@ -30,12 +30,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.example.fakestore.ui.domain.model.ProductForId
+import com.example.fakestore.ui.domain.model.Products
 import kotlin.math.absoluteValue
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun SliderImage(product: ProductForId, paddingValues: PaddingValues) {
+fun SliderImage(product: Products, paddingValues: PaddingValues) {
     val pagerState = rememberPagerState(pageCount = {
         product.images.size
     })

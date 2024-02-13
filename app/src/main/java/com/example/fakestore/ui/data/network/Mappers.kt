@@ -3,11 +3,11 @@ package com.example.fakestore.ui.data.network
 import com.example.fakestore.ui.data.network.model.AuthLoginDto
 import com.example.fakestore.ui.data.network.model.CategoryDtoItem
 import com.example.fakestore.ui.data.network.model.ProductForCategoryDtoItem
-import com.example.fakestore.ui.data.network.model.ProductForIdDto
+import com.example.fakestore.ui.data.network.model.ProductDto
 import com.example.fakestore.ui.domain.model.AuthLogin
 import com.example.fakestore.ui.domain.model.Category
 import com.example.fakestore.ui.domain.model.ProductForCategory
-import com.example.fakestore.ui.domain.model.ProductForId
+import com.example.fakestore.ui.domain.model.Products
 
 fun AuthLoginDto.toModel(): AuthLogin = AuthLogin(
     accessToken = accessToken,
@@ -35,7 +35,7 @@ fun ProductForCategoryDtoItem.toModelCategory(): ProductForCategory = ProductFor
 
 )
 
-fun ProductForIdDto.toModelProductId(): ProductForId = ProductForId(
+fun ProductDto.toModelProduct(): Products = Products(
     category = category,
     creationAt = creationAt,
     description = description,

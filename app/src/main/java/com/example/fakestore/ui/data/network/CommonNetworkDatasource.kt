@@ -6,7 +6,7 @@ import com.example.fakestore.ui.domain.model.AuthLogin
 import com.example.fakestore.ui.domain.model.Category
 import com.example.fakestore.ui.domain.model.FakeStoreError
 import com.example.fakestore.ui.domain.model.ProductForCategory
-import com.example.fakestore.ui.domain.model.ProductForId
+import com.example.fakestore.ui.domain.model.Products
 import javax.inject.Inject
 
 class CommonNetworkDatasource @Inject constructor(
@@ -42,11 +42,21 @@ class CommonNetworkDatasource @Inject constructor(
         }
     }
 
-    override suspend fun getProductForId(productForId: String): Either<FakeStoreError, ProductForId> {
+    override suspend fun getProductForId(productForId: String): Either<FakeStoreError, Products> {
         return try {
             Either.Right(
                 fakeStoreAPIService.getProductForId(productForId).body()!!
-                    .toModelProductId()
+                    .toModelProduct()
+            )
+        } catch (e: Exception) {
+            Either.Left(FakeStoreError.Network)
+        }
+    }
+
+    override suspend fun getProduct(nameProduct: String): Either<FakeStoreError, Products> {
+        return try {
+            Either.Right(
+                fakeStoreAPIService.getProductsForSearch(nameProduct).body()!!.toModelProduct()
             )
         } catch (e: Exception) {
             Either.Left(FakeStoreError.Network)

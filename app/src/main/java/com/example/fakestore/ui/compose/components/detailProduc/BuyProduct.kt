@@ -32,10 +32,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.fakestore.ui.domain.model.ProductForId
+import com.example.fakestore.ui.domain.model.Products
 
 @Composable
-fun BuyProduct(product: ProductForId) {
+fun BuyProduct(product: Products) {
     var expanded by remember { mutableStateOf(false) }
     var sizeSelected by remember { mutableStateOf("S") }
     val itemsSize = listOf("S", "M", "L", "XL", "XXL")

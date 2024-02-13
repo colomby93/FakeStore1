@@ -3,8 +3,8 @@ package com.example.fakestore.ui.data.network
 import com.example.fakestore.ui.data.network.model.AuthLoginDto
 import com.example.fakestore.ui.data.network.model.CategoryDto
 import com.example.fakestore.ui.data.network.model.LoginDto
+import com.example.fakestore.ui.data.network.model.ProductDto
 import com.example.fakestore.ui.data.network.model.ProductForCategoryDto
-import com.example.fakestore.ui.data.network.model.ProductForIdDto
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -23,7 +23,9 @@ interface FakeStoreAPIService {
     suspend fun getProductsForCategory(@Query("categoryId") categoryId: String): Response<ProductForCategoryDto>
 
     @GET("products/{productId}")
-    suspend fun getProductForId(@Path("productId") productId: String): Response<ProductForIdDto>
+    suspend fun getProductForId(@Path("productId") productId: String): Response<ProductDto>
 
+    @GET("products")
+    suspend fun getProductsForSearch(@Query("product") nameProduct: String): Response<ProductDto>
 
 }
