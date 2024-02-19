@@ -53,10 +53,10 @@ class CommonNetworkDatasource @Inject constructor(
         }
     }
 
-    override suspend fun getProduct(nameProduct: String): Either<FakeStoreError, Products> {
+    override suspend fun getProduct(): Either<FakeStoreError, List<Products>> {
         return try {
             Either.Right(
-                fakeStoreAPIService.getProductsForSearch(nameProduct).body()!!.toModelProduct()
+                fakeStoreAPIService.getAllProducts().body()!!.map { it.toModelProduct() }
             )
         } catch (e: Exception) {
             Either.Left(FakeStoreError.Network)

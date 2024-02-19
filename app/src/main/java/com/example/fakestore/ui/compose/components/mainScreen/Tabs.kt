@@ -76,10 +76,7 @@ fun Tabs(
                     onEvent
                 )
             }
-
         }
-
-
     }
 
 }

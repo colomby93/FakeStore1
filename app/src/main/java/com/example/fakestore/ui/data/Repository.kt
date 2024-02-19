@@ -14,6 +14,6 @@ interface Repository {
 
     suspend fun getProductForCategory(categoryId: String): Either<FakeStoreError, List<ProductForCategory>>
     suspend fun getProductForId(productForId: String): Either<FakeStoreError, Products>
-    suspend fun getProduct(nameProduct: String): Either<FakeStoreError, Products>
+    suspend fun getProduct(): Either<FakeStoreError, List<Products>>
 
 }

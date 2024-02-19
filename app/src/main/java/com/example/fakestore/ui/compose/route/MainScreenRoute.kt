@@ -28,7 +28,6 @@ fun MainScreenRoute(
     val productListElectronic by viewModelElectronic.state.collectAsState()
     val productListShoes by viewModelShoes.state.collectAsState()
     val productListviewModelMiscellaneous by viewModelMiscellaneous.state.collectAsState()
-    val product by viewModel.state.collectAsState()
     MainScreen(
         productForCategoryListClothes = productListClothes.productForCategoryList,
         productForCategoryListFurniture = productListFurniture.productForCategoryListFurniture,

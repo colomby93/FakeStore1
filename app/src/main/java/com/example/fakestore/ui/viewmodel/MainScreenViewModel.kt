@@ -7,7 +7,6 @@ import androidx.navigation.NavController
 import com.example.fakestore.ui.data.Repository
 import com.example.fakestore.ui.domain.model.Category
 import com.example.fakestore.ui.domain.model.ProductForCategory
-import com.example.fakestore.ui.domain.model.Products
 import com.example.fakestore.ui.navigation.PRODUCT_ID
 import com.example.fakestore.ui.navigation.Screen
 import com.example.fakestore.ui.navigation.navigate
@@ -28,7 +27,6 @@ class MainScreenViewModel @Inject constructor(private val repository: Repository
         val loading: Boolean = false,
         val productForCategoryList: List<ProductForCategory> = emptyList(),
         val categoryList: List<Category> = emptyList(),
-        val product: Products? = null
     )
 
     private val _state = MutableStateFlow(UIState())
@@ -41,7 +39,7 @@ class MainScreenViewModel @Inject constructor(private val repository: Repository
                 navController = navController
             )
 
-            is MainScreenEvent.OnSearchProduct -> getProduct(nameProduct = mainScreenEvent.nameProduct)
+            MainScreenEvent.OnClickIconSearch -> navigateToSearchProduct(navController = navController)
         }
     }
 
@@ -78,19 +76,10 @@ class MainScreenViewModel @Inject constructor(private val repository: Repository
         navController.navigate(screen = Screen.DetailProduct, args = PRODUCT_ID to productId)
     }
 
-    private fun getProduct(nameProduct: String) {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                _state.update { it.copy(loading = true) }
-                repository.getProduct(nameProduct).fold(
-                    error = { Log.e("Error in request ", "Fail request product") },
-                    success = { product ->
-                        _state.update { it.copy(product = product, loading = false) }
-                    }
-                )
-            }
-        }
+    private fun navigateToSearchProduct(navController: NavController) {
+        navController.navigate(screen = Screen.SearchProduct)
     }
+
 
     companion object {
         private const val CLOTHES_ID = "1"
@@ -100,7 +89,7 @@ class MainScreenViewModel @Inject constructor(private val repository: Repository
 
 sealed class MainScreenEvent {
     data class OnProductClicked(val productId: String) : MainScreenEvent()
-    data class OnSearchProduct(val nameProduct: String) : MainScreenEvent()
+    data object OnClickIconSearch : MainScreenEvent()
 
 
 }

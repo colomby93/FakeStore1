@@ -26,6 +26,6 @@ interface FakeStoreAPIService {
     suspend fun getProductForId(@Path("productId") productId: String): Response<ProductDto>
 
     @GET("products")
-    suspend fun getProductsForSearch(@Query("product") nameProduct: String): Response<ProductDto>
+    suspend fun getAllProducts(): Response<List<ProductDto>>
 
 }

@@ -65,7 +65,7 @@ fun MainScreenHeader(
                 IconButton(onClick = { }) {
                     Icon(imageVector = Icons.Filled.Favorite, contentDescription = "Favorite")
                 }
-                IconButton(onClick = {}) {
+                IconButton(onClick = {onEvent(MainScreenEvent.OnClickIconSearch)}) {
                     Icon(imageVector = Icons.Filled.Search, contentDescription = "Search")
                 }
                 IconButton(onClick = { }) {
