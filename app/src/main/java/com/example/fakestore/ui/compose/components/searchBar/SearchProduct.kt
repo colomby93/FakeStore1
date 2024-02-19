@@ -15,7 +15,6 @@ import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -37,9 +36,6 @@ fun SearchProduct(
     var active by remember {
         mutableStateOf(true)
     }
-    val searchHistory = remember {
-        mutableStateListOf("")
-    }
 
     Row(modifier = Modifier.fillMaxWidth()) {
         SearchBar(
@@ -54,7 +50,7 @@ fun SearchProduct(
             onActiveChange = { active = it },
             placeholder = { Text(text = "Search product") },
             leadingIcon = {
-                IconButton(onClick = { /*TODO*/ }) {
+                IconButton(onClick = { onEvent(SearchProductEvent.OnArrowBackClicked) }) {
                     Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "")
                 }
             },
@@ -69,7 +65,7 @@ fun SearchProduct(
                 .padding(0.dp),
             colors = SearchBarDefaults.colors(Color.White)
         ) {
-            ItemProduct(productList = product)
+            ItemProduct(productList = product, onEvent = onEvent)
         }
     }
 

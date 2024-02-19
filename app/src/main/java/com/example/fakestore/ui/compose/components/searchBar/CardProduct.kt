@@ -23,13 +23,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.fakestore.ui.compose.components.mainScreen.ImageProduct
 import com.example.fakestore.ui.domain.model.Products
+import com.example.fakestore.ui.viewmodel.SearchProductEvent
 
 @Composable
 fun CardProduct(
-    product: Products
+    product: Products,
+    onEvent: (SearchProductEvent) -> Unit
 ) {
     Card(
         onClick = {
+            onEvent(SearchProductEvent.OnProductClicked(product.id.toString()))
         },
         shape = RoundedCornerShape(10.dp),
         modifier = Modifier
@@ -67,11 +70,12 @@ fun CardProduct(
 
 @Composable
 fun ItemProduct(
-    productList: List<Products>
+    productList: List<Products>,
+    onEvent: (SearchProductEvent) -> Unit
 ) {
     LazyColumn(content = {
         items(productList) { product ->
-            CardProduct(product = product)
+            CardProduct(product = product, onEvent = onEvent)
         }
     })
 }

@@ -14,6 +14,11 @@ fun SearchProductRoute(
     navController: NavController
 ) {
     val product by viewModel.state.collectAsState()
-    SearchProductScreen(product = product.productsList) { viewModel.onEvent(it) }
+    SearchProductScreen(product = product.productsList) {
+        viewModel.onEvent(
+            it,
+            navController = navController
+        )
+    }
 }
 

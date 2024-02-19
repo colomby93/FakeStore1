@@ -1,11 +1,14 @@
 package com.example.fakestore.ui.viewmodel
 
 import android.util.Log
-import androidx.compose.ui.text.capitalize
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
 import com.example.fakestore.ui.data.Repository
 import com.example.fakestore.ui.domain.model.Products
+import com.example.fakestore.ui.navigation.PRODUCT_ID
+import com.example.fakestore.ui.navigation.Screen
+import com.example.fakestore.ui.navigation.navigate
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -33,10 +36,16 @@ class SearchProductViewModel @Inject constructor(private val repository: Reposit
         getProduct()
     }
 
-    fun onEvent(searchProductEvent: SearchProductEvent) {
+    fun onEvent(searchProductEvent: SearchProductEvent, navController: NavController) {
         when (searchProductEvent) {
             is SearchProductEvent.OnTextChange -> filterProduct(searchProductEvent.onTextChange)
             is SearchProductEvent.OnTextSubmit -> filterProduct(searchProductEvent.onTextSubmit)
+            is SearchProductEvent.OnProductClicked -> navigateToDetailProduct(
+                searchProductEvent.productId,
+                navController = navController
+            )
+
+            is SearchProductEvent.OnArrowBackClicked -> onArrowBack(navController = navController)
         }
     }
 
@@ -61,10 +70,22 @@ class SearchProductViewModel @Inject constructor(private val repository: Reposit
         _state.update { it.copy(productsList = searchProduct) }
     }
 
+    private fun navigateToDetailProduct(productId: String, navController: NavController) {
+        navController.navigate(screen = Screen.DetailProduct, args = PRODUCT_ID to productId)
+    }
+
+    private fun onArrowBack(navController: NavController) {
+        if (navController.previousBackStackEntry != null) {
+            navController.navigateUp()
+        }
+    }
+
 }
 
 sealed class SearchProductEvent {
     data class OnTextChange(val onTextChange: String) : SearchProductEvent()
     data class OnTextSubmit(val onTextSubmit: String) : SearchProductEvent()
+    data class OnProductClicked(val productId: String) : SearchProductEvent()
+    data object OnArrowBackClicked : SearchProductEvent()
 }
 
