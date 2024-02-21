@@ -62,21 +62,30 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.ui:ui-util:1.6.0")
+    implementation("androidx.compose.material3:material3:1.2.0")
     //Dagger Hilt
     implementation("com.google.dagger:hilt-android:2.48")
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
     implementation("androidx.compose.ui:ui-text-android:1.6.0")
+    implementation("androidx.leanback:leanback:1.0.0")
+    implementation("com.google.android.material:material:1.11.0")
     kapt("com.google.dagger:hilt-android-compiler:2.48")
     //Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
-
     //Tabs
     implementation("com.google.accompanist:accompanist-pager: 0.28.0") // Pager
     implementation("com.google.accompanist:accompanist-pager-indicators:0.28.0") // Pager Indicators
     // AsyncImage
     implementation("io.coil-kt:coil-compose:2.5.0")
+    //permission handling in compose
+    implementation ("com.google.accompanist:accompanist-permissions:0.24.11-rc")
+    //for view-model in compose
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.0")
+
+    implementation ("androidx.compose.material:material-icons-extended:1.6.1")
+
 
 
     testImplementation("junit:junit:4.13.2")

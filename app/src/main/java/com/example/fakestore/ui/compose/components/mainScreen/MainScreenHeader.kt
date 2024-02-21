@@ -43,6 +43,7 @@ fun MainScreenHeader(
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
+
     ModalNavigationDrawer(drawerContent = {
         AppDrawer(modifier = Modifier, closeDrawer = { scope.launch { drawerState.close() } }
 
@@ -64,7 +65,7 @@ fun MainScreenHeader(
                 IconButton(onClick = { }) {
                     Icon(imageVector = Icons.Filled.Favorite, contentDescription = "Favorite")
                 }
-                IconButton(onClick = { }) {
+                IconButton(onClick = {onEvent(MainScreenEvent.OnClickIconSearch)}) {
                     Icon(imageVector = Icons.Filled.Search, contentDescription = "Search")
                 }
                 IconButton(onClick = { }) {

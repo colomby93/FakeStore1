@@ -12,6 +12,7 @@ import androidx.navigation.navArgument
 import com.example.fakestore.ui.compose.route.DetailProductRoute
 import com.example.fakestore.ui.compose.route.LoginRoute
 import com.example.fakestore.ui.compose.route.MainScreenRoute
+import com.example.fakestore.ui.compose.route.SearchProductRoute
 
 @Composable
 fun NavigationGraph(
@@ -32,7 +33,9 @@ fun NavigationGraph(
             if (productId != null) {
                 DetailProductRoute(productId, navController = navController)
             }
-
+        }
+        composable(route = Screen.SearchProduct.route) {
+            SearchProductRoute(navController = navController)
         }
     }
 

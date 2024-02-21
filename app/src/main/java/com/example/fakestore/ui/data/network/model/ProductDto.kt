@@ -3,7 +3,7 @@ package com.example.fakestore.ui.data.network.model
 
 import com.google.gson.annotations.SerializedName
 
-data class ProductForIdDto(
+data class ProductDto(
     @SerializedName("category") val category: CategoryX,
     @SerializedName("creationAt") val creationAt: String,
     @SerializedName("description") val description: String,

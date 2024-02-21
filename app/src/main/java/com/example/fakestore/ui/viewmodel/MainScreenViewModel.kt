@@ -26,7 +26,7 @@ class MainScreenViewModel @Inject constructor(private val repository: Repository
     data class UIState(
         val loading: Boolean = false,
         val productForCategoryList: List<ProductForCategory> = emptyList(),
-        val categoryList: List<Category> = emptyList()
+        val categoryList: List<Category> = emptyList(),
     )
 
     private val _state = MutableStateFlow(UIState())
@@ -39,6 +39,7 @@ class MainScreenViewModel @Inject constructor(private val repository: Repository
                 navController = navController
             )
 
+            MainScreenEvent.OnClickIconSearch -> navigateToSearchProduct(navController = navController)
         }
     }
 
@@ -75,6 +76,11 @@ class MainScreenViewModel @Inject constructor(private val repository: Repository
         navController.navigate(screen = Screen.DetailProduct, args = PRODUCT_ID to productId)
     }
 
+    private fun navigateToSearchProduct(navController: NavController) {
+        navController.navigate(screen = Screen.SearchProduct)
+    }
+
+
     companion object {
         private const val CLOTHES_ID = "1"
     }
@@ -83,6 +89,7 @@ class MainScreenViewModel @Inject constructor(private val repository: Repository
 
 sealed class MainScreenEvent {
     data class OnProductClicked(val productId: String) : MainScreenEvent()
+    data object OnClickIconSearch : MainScreenEvent()
 
 
 }

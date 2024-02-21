@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.example.fakestore.ui.data.Repository
-import com.example.fakestore.ui.domain.model.ProductForId
+import com.example.fakestore.ui.domain.model.Products
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -51,7 +51,7 @@ class ProductDetailViewModel @Inject constructor(private val repository: Reposit
 
 data class UIState(
     val loading: Boolean = false,
-    val product: ProductForId? = null
+    val product: Products? = null
 )
 
 

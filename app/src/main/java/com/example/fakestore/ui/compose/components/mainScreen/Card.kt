@@ -48,7 +48,7 @@ fun CardProduct(
             colors = CardDefaults.cardColors(Color.LightGray)
 
         ) {
-            ImageProduct(productForCategory = productForCategory)
+            ImageProductForCategory(productForCategory = productForCategory)
             Spacer(modifier = Modifier.size(5.dp))
             Row(
                 modifier = Modifier
@@ -74,7 +74,7 @@ fun CardProduct(
 }
 
 @Composable
-fun ItemProduct(
+fun ItemProductForCategory(
     productForCategoryList: List<ProductForCategory>,
     state: MainScreenViewModel.UIState,
     onEvent: (MainScreenEvent) -> Unit

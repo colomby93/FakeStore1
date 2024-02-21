@@ -16,6 +16,9 @@ val tertiary_container = Color(0xFFFFD8E4)
 val light_grey = Color(0xFF6F6C6C)
 
 val light_grey_2 = Color(0xFFF5F3F3)
+val white = Color(0xFFF5F3F3)
+val black = Color(0xFF070707)
+val green = Color(0xFF4CAF50)
 
 
 
