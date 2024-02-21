@@ -1,5 +1,6 @@
 package com.example.fakestore.ui.viewmodel
 
+import android.app.Application
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -19,8 +20,10 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class SearchProductViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
-
+class SearchProductViewModel @Inject constructor(
+    private val repository: Repository,
+    private val app: Application
+) : ViewModel() {
 
     data class UIState(
         val loading: Boolean = false,
@@ -36,7 +39,10 @@ class SearchProductViewModel @Inject constructor(private val repository: Reposit
         getProduct()
     }
 
-    fun onEvent(searchProductEvent: SearchProductEvent, navController: NavController) {
+    fun onEvent(
+        searchProductEvent: SearchProductEvent,
+        navController: NavController,
+    ) {
         when (searchProductEvent) {
             is SearchProductEvent.OnTextChange -> filterProduct(searchProductEvent.onTextChange)
             is SearchProductEvent.OnTextSubmit -> filterProduct(searchProductEvent.onTextSubmit)
@@ -65,7 +71,6 @@ class SearchProductViewModel @Inject constructor(private val repository: Reposit
     }
 
     private fun filterProduct(product: String) {
-        Log.e("text change", "$product")
         val searchProduct = productList.filter { it.title.contains(product.capitalize()) }
         _state.update { it.copy(productsList = searchProduct) }
     }

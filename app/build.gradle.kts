@@ -74,12 +74,15 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
-
     //Tabs
     implementation("com.google.accompanist:accompanist-pager: 0.28.0") // Pager
     implementation("com.google.accompanist:accompanist-pager-indicators:0.28.0") // Pager Indicators
     // AsyncImage
     implementation("io.coil-kt:coil-compose:2.5.0")
+    //permission handling in compose
+    implementation ("com.google.accompanist:accompanist-permissions:0.24.11-rc")
+    //for view-model in compose
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.0")
 
     implementation ("androidx.compose.material:material-icons-extended:1.6.1")
 
