@@ -6,6 +6,7 @@ import com.example.fakestore.ui.domain.model.Category
 import com.example.fakestore.ui.domain.model.FakeStoreError
 import com.example.fakestore.ui.domain.model.ProductForCategory
 import com.example.fakestore.ui.domain.model.Products
+import com.example.fakestore.ui.domain.model.UserProfile
 
 interface NetworkDatasource {
     suspend fun login(email: String, password: String): Either<FakeStoreError, AuthLogin>
@@ -13,4 +14,5 @@ interface NetworkDatasource {
     suspend fun getProductsForCategory(categoryId: String): Either<FakeStoreError, List<ProductForCategory>>
     suspend fun getProductForId(productForId: String): Either<FakeStoreError, Products>
     suspend fun getProduct(): Either<FakeStoreError, List<Products>>
+    suspend fun getUserProfile(token: String): Either<FakeStoreError, UserProfile>
 }

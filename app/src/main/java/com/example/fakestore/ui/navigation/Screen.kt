@@ -7,6 +7,7 @@ sealed class Screen(val route: String) {
     data object MainScreen : Screen(route = "MainScreen")
     data object DetailProduct : Screen(route = "DetailProduct/{$PRODUCT_ID}")
     data object SearchProduct: Screen(route = "SearchProduct")
+    data object UserProfile: Screen(route = "userProfile")
 
 
     fun withArgs(vararg args: Pair<String, String>): String {

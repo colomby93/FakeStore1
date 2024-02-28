@@ -13,12 +13,13 @@ import com.example.fakestore.ui.compose.route.DetailProductRoute
 import com.example.fakestore.ui.compose.route.LoginRoute
 import com.example.fakestore.ui.compose.route.MainScreenRoute
 import com.example.fakestore.ui.compose.route.SearchProductRoute
+import com.example.fakestore.ui.compose.route.UserProfileRoute
 
 @Composable
 fun NavigationGraph(
     navController: NavHostController = rememberNavController()
 ) {
-    NavHost(navController = navController, startDestination = Screen.MainScreen.route) {
+    NavHost(navController = navController, startDestination = Screen.Login.route) {
         composable(route = Screen.Login.route) {
             LoginRoute(navController = navController)
         }
@@ -36,6 +37,9 @@ fun NavigationGraph(
         }
         composable(route = Screen.SearchProduct.route) {
             SearchProductRoute(navController = navController)
+        }
+        composable(route = Screen.UserProfile.route) {
+            UserProfileRoute()
         }
     }
 
