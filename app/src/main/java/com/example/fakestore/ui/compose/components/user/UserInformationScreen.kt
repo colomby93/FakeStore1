@@ -9,6 +9,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.fakestore.ui.domain.model.UserProfile
 import com.example.fakestore.ui.viewmodel.UserProfileEvent
@@ -24,7 +25,7 @@ fun UserInformationScreen(userProfile: UserProfile, onEvent: (UserProfileEvent) 
                     contentDescription = "Arrow back icon"
                 )
             })
-        }, title = { Text(text = "personal information") })
+        }, title = { Text(text = "personal information", fontWeight = FontWeight.Bold) })
     }, content = {
         UserInformationContent(it, userProfile, onEvent = onEvent)
     })

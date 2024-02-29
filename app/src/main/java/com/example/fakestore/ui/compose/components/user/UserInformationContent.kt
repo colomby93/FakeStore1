@@ -46,13 +46,14 @@ fun UserInformationContent(
             fontWeight = FontWeight.ExtraBold,
             fontSize = 30.sp
         )
+        Spacer(modifier = Modifier.height(60.dp))
         UserInformationFieldEmail(
             icon = Icons.Filled.Email,
             title = "Email address",
             description = userProfile.email,
             onEvent = onEvent
         )
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(60.dp))
         UserInformationFieldPassword(
             icon = Icons.Filled.Password,
             title = "Password",
