@@ -16,9 +16,42 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.fakestore.ui.viewmodel.UserProfileEvent
 
 @Composable
-fun UserInformationField(icon: ImageVector, title: String, description: String) {
+fun UserInformationFieldEmail(
+    icon: ImageVector,
+    title: String,
+    description: String,
+    onEvent: (UserProfileEvent) -> Unit
+) {
+    Column(
+        modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.Start
+    ) {
+        Icon(
+            imageVector = icon, contentDescription = ""
+        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(text = title, color = Color.LightGray)
+            Spacer(modifier = Modifier.weight(1F))
+            IconButton(onClick = { /*TODO*/ }) {
+                Icon(imageVector = Icons.Default.Edit, contentDescription = "Icon edit")
+            }
+        }
+        Text(text = description)
+    }
+}
+
+@Composable
+fun UserInformationFieldPassword(
+    icon: ImageVector,
+    title: String,
+    description: String,
+    onEvent: (UserProfileEvent) -> Unit
+) {
     Column(
         modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.Start
     ) {
@@ -42,6 +75,6 @@ fun UserInformationField(icon: ImageVector, title: String, description: String) 
 @Composable
 @Preview
 fun InformationUserPreview() {
-    UserInformationField(Icons.Filled.Email, "Email address", "jhonatan@worldline.com")
+    UserInformationFieldEmail(Icons.Filled.Email, "Email address", "jhonatan@worldline.com", {})
 }
 

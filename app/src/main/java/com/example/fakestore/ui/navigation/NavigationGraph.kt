@@ -39,7 +39,7 @@ fun NavigationGraph(
             SearchProductRoute(navController = navController)
         }
         composable(route = Screen.UserProfile.route) {
-            UserProfileRoute()
+            UserProfileRoute(navController = navController)
         }
     }
 

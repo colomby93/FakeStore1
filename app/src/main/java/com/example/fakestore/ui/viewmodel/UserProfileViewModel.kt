@@ -3,6 +3,7 @@ package com.example.fakestore.ui.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
 import com.example.fakestore.ui.data.Repository
 import com.example.fakestore.ui.domain.model.UserProfile
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,6 +27,15 @@ class UserProfileViewModel @Inject constructor(
         getUserProfile()
     }
 
+    fun onEvent(userProfileEvent: UserProfileEvent, navController: NavController) {
+        when (userProfileEvent) {
+
+            is UserProfileEvent.OnArrowBackClicked -> onArrowBack(navController = navController)
+            is UserProfileEvent.OnClickedIconEditEmail -> TODO()
+            is UserProfileEvent.OnClickedIconEditPassword -> TODO()
+        }
+    }
+
     private fun getUserProfile() {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
@@ -41,10 +51,22 @@ class UserProfileViewModel @Inject constructor(
         }
     }
 
+    private fun onArrowBack(navController: NavController) {
+        if (navController.previousBackStackEntry != null) {
+            navController.navigateUp()
+        }
+    }
+
     data class UIState(
         val loading: Boolean = false,
         val userProfile: UserProfile? = null,
         val token: String = ""
     )
+}
+
+sealed class UserProfileEvent() {
+    data object OnArrowBackClicked : UserProfileEvent()
+    data object OnClickedIconEditEmail : UserProfileEvent()
+    data object OnClickedIconEditPassword : UserProfileEvent()
 }
 
