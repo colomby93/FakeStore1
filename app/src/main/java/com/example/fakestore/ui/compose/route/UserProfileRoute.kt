@@ -14,6 +14,8 @@ fun UserProfileRoute(
 ) {
     val user by viewModel.state.collectAsState()
     user.userProfile?.let { userProfile ->
-        UserProfileScreen(userProfile = userProfile)
+        UserProfileScreen(
+            userProfile = userProfile
+        ) { viewModel.onEvent(it, navController = navController) }
     }
 }
