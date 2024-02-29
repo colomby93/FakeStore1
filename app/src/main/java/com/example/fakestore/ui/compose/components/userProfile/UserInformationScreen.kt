@@ -1,4 +1,4 @@
-package com.example.fakestore.ui.compose.components.user
+package com.example.fakestore.ui.compose.components.userProfile
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack

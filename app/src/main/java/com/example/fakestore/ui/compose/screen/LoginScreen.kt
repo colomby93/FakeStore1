@@ -19,13 +19,11 @@ fun LoginScreen(
     state: LoginState,
     onEvent: (LoginEvent) -> Unit,
 ) {
-
     val verticalGradientBackground = Brush.verticalGradient(
         colors = listOf(
             tertiary_container, on_tertiary, tertiary
         )
     )
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -37,5 +35,5 @@ fun LoginScreen(
             onEvent = onEvent
         )
     }
-    
+
 }
