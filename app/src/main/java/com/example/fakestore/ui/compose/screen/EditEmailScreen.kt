@@ -22,10 +22,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.fakestore.ui.compose.components.editEmail.EditEmailContent
+import com.example.fakestore.ui.domain.model.UserProfile
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun EditEmailScreen() {
+fun EditEmailScreen(userProfile: UserProfile) {
     Scaffold(
         topBar = {
             TopAppBar(navigationIcon = {
@@ -45,7 +46,7 @@ fun EditEmailScreen() {
             ) {
                 HorizontalDivider(color = Color.LightGray)
                 Spacer(modifier = Modifier.height(40.dp))
-                EditEmailContent()
+                EditEmailContent(userProfile = userProfile)
             }
         }
     )
@@ -55,5 +56,5 @@ fun EditEmailScreen() {
 @Preview
 @Composable
 fun EditEmailScreenPreview() {
-    EditEmailScreen()
+    EditEmailScreen(UserProfile("", "Jhon@email.com", 1, "Jhon", "changeme", ""))
 }

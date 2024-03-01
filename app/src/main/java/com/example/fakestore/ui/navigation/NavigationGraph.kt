@@ -10,6 +10,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.fakestore.ui.compose.route.DetailProductRoute
+import com.example.fakestore.ui.compose.route.EditEmailRoute
 import com.example.fakestore.ui.compose.route.LoginRoute
 import com.example.fakestore.ui.compose.route.MainScreenRoute
 import com.example.fakestore.ui.compose.route.SearchProductRoute
@@ -40,6 +41,9 @@ fun NavigationGraph(
         }
         composable(route = Screen.UserProfile.route) {
             UserProfileRoute(navController = navController)
+        }
+        composable(route = Screen.EditEmail.route) {
+            EditEmailRoute()
         }
     }
 

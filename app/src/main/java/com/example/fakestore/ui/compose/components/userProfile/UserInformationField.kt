@@ -37,7 +37,7 @@ fun UserInformationFieldEmail(
         ) {
             Text(text = title, color = Color.LightGray)
             Spacer(modifier = Modifier.weight(1F))
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = { onEvent(UserProfileEvent.OnClickedIconEditEmail) }) {
                 Icon(imageVector = Icons.Default.Edit, contentDescription = "Icon edit")
             }
         }
