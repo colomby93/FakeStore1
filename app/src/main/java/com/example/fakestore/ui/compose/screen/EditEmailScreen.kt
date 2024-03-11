@@ -23,14 +23,20 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.fakestore.ui.compose.components.editEmail.EditEmailContent
 import com.example.fakestore.ui.domain.model.UserProfile
+import com.example.fakestore.ui.viewmodel.EditEmailEvent
+import com.example.fakestore.ui.viewmodel.EditEmailViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun EditEmailScreen(userProfile: UserProfile) {
+fun EditEmailScreen(
+    state: EditEmailViewModel.EditEmailState,
+    userProfile: UserProfile,
+    onEvent: (EditEmailEvent) -> Unit
+) {
     Scaffold(
         topBar = {
             TopAppBar(navigationIcon = {
-                IconButton(onClick = { TODO() }, content = {
+                IconButton(onClick = { onEvent(EditEmailEvent.OnArrowBackClicked) }, content = {
                     Icon(
                         imageVector = Icons.Default.ArrowBack,
                         contentDescription = "Arrow back icon"
@@ -46,7 +52,7 @@ fun EditEmailScreen(userProfile: UserProfile) {
             ) {
                 HorizontalDivider(color = Color.LightGray)
                 Spacer(modifier = Modifier.height(40.dp))
-                EditEmailContent(userProfile = userProfile)
+                EditEmailContent(userProfile = userProfile, onEvent = onEvent, state = state)
             }
         }
     )
@@ -56,5 +62,8 @@ fun EditEmailScreen(userProfile: UserProfile) {
 @Preview
 @Composable
 fun EditEmailScreenPreview() {
-    EditEmailScreen(UserProfile("", "Jhon@email.com", 1, "Jhon", "changeme", ""))
+    EditEmailScreen(
+        state = EditEmailViewModel.EditEmailState(),
+        UserProfile("", "Jhon@email.com", 1, "Jhon", "changeme", ""),
+        {})
 }

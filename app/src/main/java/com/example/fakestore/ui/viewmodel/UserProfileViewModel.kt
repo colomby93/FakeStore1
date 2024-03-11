@@ -7,6 +7,8 @@ import androidx.navigation.NavController
 import com.example.fakestore.ui.data.Repository
 import com.example.fakestore.ui.domain.model.UserProfile
 import com.example.fakestore.ui.navigation.Screen
+import com.example.fakestore.ui.navigation.USER_ID
+import com.example.fakestore.ui.navigation.navigate
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -30,9 +32,12 @@ class UserProfileViewModel @Inject constructor(
 
     fun onEvent(userProfileEvent: UserProfileEvent, navController: NavController) {
         when (userProfileEvent) {
-
             is UserProfileEvent.OnArrowBackClicked -> onArrowBack(navController = navController)
-            is UserProfileEvent.OnClickedIconEditEmail -> navigateToScreenEditEmail(navController = navController)
+            is UserProfileEvent.OnClickedIconEditEmail -> navigateToScreenEditEmail(
+                userId = userProfileEvent.userId,
+                navController = navController
+            )
+
             is UserProfileEvent.OnClickedIconEditPassword -> TODO()
         }
     }
@@ -58,8 +63,8 @@ class UserProfileViewModel @Inject constructor(
         }
     }
 
-    private fun navigateToScreenEditEmail(navController: NavController) {
-        navController.navigate(Screen.EditEmail.route)
+    private fun navigateToScreenEditEmail(userId: String,navController: NavController) {
+        navController.navigate(screen = Screen.EditEmail, args = USER_ID to userId)
     }
 
     data class UIState(
@@ -71,7 +76,7 @@ class UserProfileViewModel @Inject constructor(
 
 sealed class UserProfileEvent {
     data object OnArrowBackClicked : UserProfileEvent()
-    data object OnClickedIconEditEmail : UserProfileEvent()
+    data class OnClickedIconEditEmail(val userId: String) : UserProfileEvent()
     data object OnClickedIconEditPassword : UserProfileEvent()
 }
 

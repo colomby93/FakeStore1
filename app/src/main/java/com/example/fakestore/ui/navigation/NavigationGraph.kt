@@ -39,11 +39,19 @@ fun NavigationGraph(
         composable(route = Screen.SearchProduct.route) {
             SearchProductRoute(navController = navController)
         }
-        composable(route = Screen.UserProfile.route) {
+        composable(
+            route = Screen.UserProfile.route
+        ) {
             UserProfileRoute(navController = navController)
         }
-        composable(route = Screen.EditEmail.route) {
-            EditEmailRoute()
+        composable(
+            route = Screen.EditEmail.route,
+            arguments = listOf(navArgument(USER_ID) { type = NavType.StringType })
+        ) {
+            val userId = it.arguments?.getString(USER_ID)
+            if (userId != null) {
+                EditEmailRoute(userId, navController = navController)
+            }
         }
     }
 

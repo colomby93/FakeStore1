@@ -51,7 +51,8 @@ fun UserInformationContent(
             icon = Icons.Filled.Email,
             title = "Email address",
             description = userProfile.email,
-            onEvent = onEvent
+            onEvent = onEvent,
+            userProfile = userProfile
         )
         Spacer(modifier = Modifier.height(60.dp))
         UserInformationFieldPassword(

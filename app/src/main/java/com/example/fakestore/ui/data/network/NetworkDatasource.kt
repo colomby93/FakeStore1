@@ -15,4 +15,5 @@ interface NetworkDatasource {
     suspend fun getProductForId(productForId: String): Either<FakeStoreError, Products>
     suspend fun getProduct(): Either<FakeStoreError, List<Products>>
     suspend fun getUserProfile(token: String): Either<FakeStoreError, UserProfile>
+    suspend fun putEditEmail(userId: String, email: String): Either<FakeStoreError, UserProfile>
 }

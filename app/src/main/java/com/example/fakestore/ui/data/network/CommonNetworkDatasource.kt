@@ -4,6 +4,7 @@ import com.example.fakestore.ui.data.network.model.LoginDto
 import com.example.fakestore.ui.domain.Either
 import com.example.fakestore.ui.domain.model.AuthLogin
 import com.example.fakestore.ui.domain.model.Category
+import com.example.fakestore.ui.domain.model.Email
 import com.example.fakestore.ui.domain.model.FakeStoreError
 import com.example.fakestore.ui.domain.model.ProductForCategory
 import com.example.fakestore.ui.domain.model.Products
@@ -67,9 +68,24 @@ class CommonNetworkDatasource @Inject constructor(
     override suspend fun getUserProfile(token: String): Either<FakeStoreError, UserProfile> {
         return try {
             Either.Right(
-                fakeStoreAPIService.getUserDetail(token =token).body()!!.toModelUser()
+                fakeStoreAPIService.getUserDetail(token = token).body()!!.toModelUser()
             )
-        }catch (e: Exception){
+        } catch (e: Exception) {
+            Either.Left(FakeStoreError.Network)
+        }
+    }
+
+    override suspend fun putEditEmail(
+        userId: String,
+        email: String
+    ): Either<FakeStoreError, UserProfile> {
+        return try {
+            val email = Email(email = email)
+            Either.Right(
+                fakeStoreAPIService.putEditEmail(userId = userId, email = email).body()!!
+                    .toModelUser()
+            )
+        } catch (e: Exception) {
             Either.Left(FakeStoreError.Network)
         }
     }

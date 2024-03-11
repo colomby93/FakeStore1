@@ -1,6 +1,7 @@
 package com.example.fakestore.ui.navigation
 
 var PRODUCT_ID = "product_id"
+var USER_ID = "user_id"
 
 sealed class Screen(val route: String) {
     data object Login : Screen(route = "login")
@@ -8,7 +9,7 @@ sealed class Screen(val route: String) {
     data object DetailProduct : Screen(route = "DetailProduct/{$PRODUCT_ID}")
     data object SearchProduct : Screen(route = "SearchProduct")
     data object UserProfile : Screen(route = "userProfile")
-    data object EditEmail : Screen(route = "ChangeEmail")
+    data object EditEmail : Screen(route = "ChangeEmail/{$USER_ID}")
 
 
     fun withArgs(vararg args: Pair<String, String>): String {

@@ -43,4 +43,11 @@ class CommonRepository @Inject constructor(
         return networkDatasource.getUserProfile("Bearer ${preferences.getToken()}")
     }
 
+    override suspend fun putEditEmail(
+        userId: String,
+        email: String
+    ): Either<FakeStoreError, UserProfile> {
+        return networkDatasource.putEditEmail(userId = userId, email = email)
+    }
+
 }
