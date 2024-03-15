@@ -7,6 +7,7 @@ import com.example.fakestore.ui.domain.model.Category
 import com.example.fakestore.ui.domain.model.FakeStoreError
 import com.example.fakestore.ui.domain.model.ProductForCategory
 import com.example.fakestore.ui.domain.model.Products
+import com.example.fakestore.ui.domain.model.UserProfile
 import javax.inject.Inject
 
 class CommonNetworkDatasource @Inject constructor(
@@ -57,6 +58,31 @@ class CommonNetworkDatasource @Inject constructor(
         return try {
             Either.Right(
                 fakeStoreAPIService.getAllProducts().body()!!.map { it.toModelProduct() }
+            )
+        } catch (e: Exception) {
+            Either.Left(FakeStoreError.Network)
+        }
+    }
+
+    override suspend fun getUserProfile(token: String): Either<FakeStoreError, UserProfile> {
+        return try {
+            Either.Right(
+                fakeStoreAPIService.getUserDetail(token = token).body()!!.toModelUser()
+            )
+        } catch (e: Exception) {
+            Either.Left(FakeStoreError.Network)
+        }
+    }
+
+    override suspend fun putParameterUser(
+        userId: String,
+        parameter: UserProfile
+    ): Either<FakeStoreError, UserProfile> {
+        return try {
+            Either.Right(
+                fakeStoreAPIService.putParameterUser(userId = userId, parameterUser = parameter)
+                    .body()!!
+                    .toModelUser()
             )
         } catch (e: Exception) {
             Either.Left(FakeStoreError.Network)

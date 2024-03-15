@@ -4,8 +4,8 @@ import com.example.fakestore.ui.data.CommonRepository
 import com.example.fakestore.ui.data.Repository
 import com.example.fakestore.ui.data.network.CommonNetworkDatasource
 import com.example.fakestore.ui.data.network.NetworkDatasource
-import com.example.fakestore.ui.data.preference.CommonPreference
-import com.example.fakestore.ui.data.preference.Preference
+import com.example.fakestore.ui.data.preference.CommonPreferences
+import com.example.fakestore.ui.data.preference.Preferences
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -21,5 +21,5 @@ abstract class RepositoryModule {
     abstract fun bindNetworkRepository(remoteDatasource: CommonNetworkDatasource): NetworkDatasource
 
     @Binds
-    abstract fun bindPreference(preference: CommonPreference): Preference
+    abstract fun bindPreference(preference: CommonPreferences): Preferences
 }

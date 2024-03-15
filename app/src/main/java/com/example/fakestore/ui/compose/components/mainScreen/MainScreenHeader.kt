@@ -45,8 +45,10 @@ fun MainScreenHeader(
 
 
     ModalNavigationDrawer(drawerContent = {
-        AppDrawer(modifier = Modifier, closeDrawer = { scope.launch { drawerState.close() } }
-
+        AppDrawer(
+            modifier = Modifier,
+            closeDrawer = { scope.launch { drawerState.close() } },
+            onEvent = onEvent
         )
     }, drawerState = drawerState) {
         Scaffold(topBar = {
@@ -65,7 +67,7 @@ fun MainScreenHeader(
                 IconButton(onClick = { }) {
                     Icon(imageVector = Icons.Filled.Favorite, contentDescription = "Favorite")
                 }
-                IconButton(onClick = {onEvent(MainScreenEvent.OnClickIconSearch)}) {
+                IconButton(onClick = { onEvent(MainScreenEvent.OnClickIconSearch) }) {
                     Icon(imageVector = Icons.Filled.Search, contentDescription = "Search")
                 }
                 IconButton(onClick = { }) {

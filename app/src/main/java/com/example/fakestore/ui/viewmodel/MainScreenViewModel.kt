@@ -39,7 +39,8 @@ class MainScreenViewModel @Inject constructor(private val repository: Repository
                 navController = navController
             )
 
-            MainScreenEvent.OnClickIconSearch -> navigateToSearchProduct(navController = navController)
+            is MainScreenEvent.OnClickIconSearch -> navigateToSearchProduct(navController = navController)
+            is MainScreenEvent.OnClickedAppDrawerUser -> navigateToUserProfile(navController = navController)
         }
     }
 
@@ -72,12 +73,17 @@ class MainScreenViewModel @Inject constructor(private val repository: Repository
         }
     }
 
+
     private fun navigateToDetailProduct(productId: String, navController: NavController) {
         navController.navigate(screen = Screen.DetailProduct, args = PRODUCT_ID to productId)
     }
 
     private fun navigateToSearchProduct(navController: NavController) {
         navController.navigate(screen = Screen.SearchProduct)
+    }
+
+    private fun navigateToUserProfile(navController: NavController) {
+        navController.navigate(screen = Screen.UserProfile)
     }
 
 
@@ -90,6 +96,7 @@ class MainScreenViewModel @Inject constructor(private val repository: Repository
 sealed class MainScreenEvent {
     data class OnProductClicked(val productId: String) : MainScreenEvent()
     data object OnClickIconSearch : MainScreenEvent()
+    data object OnClickedAppDrawerUser : MainScreenEvent()
 
 
 }

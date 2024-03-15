@@ -1,7 +1,7 @@
 package com.example.fakestore.ui.data.preference.di
 
 import android.content.Context
-import com.example.fakestore.ui.data.preference.CommonPreference
+import com.example.fakestore.ui.data.preference.CommonPreferences
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,7 +14,7 @@ import javax.inject.Singleton
 object PreferenceModule {
     @Singleton
     @Provides
-    fun providePreference(@ApplicationContext context: Context): CommonPreference {
-        return CommonPreference(context)
+    fun providePreference(@ApplicationContext context: Context): CommonPreferences {
+        return CommonPreferences(context)
     }
 }

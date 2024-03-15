@@ -25,12 +25,14 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.fakestore.R
+import com.example.fakestore.ui.viewmodel.MainScreenEvent
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppDrawer(
     modifier: Modifier = Modifier,
-    closeDrawer: () -> Unit
+    closeDrawer: () -> Unit,
+    onEvent: (MainScreenEvent) -> Unit
 ) {
     ModalDrawerSheet(modifier = Modifier) {
         DrawerHeader(modifier)
@@ -44,7 +46,7 @@ fun AppDrawer(
             },
             selected = false,
             onClick = {
-                closeDrawer()
+                onEvent(MainScreenEvent.OnClickedAppDrawerUser)
             },
             icon = { Icon(imageVector = Icons.Default.Person, contentDescription = null) },
             shape = MaterialTheme.shapes.small

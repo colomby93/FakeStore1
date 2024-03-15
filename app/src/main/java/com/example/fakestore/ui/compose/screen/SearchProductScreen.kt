@@ -9,9 +9,6 @@ import com.example.fakestore.ui.viewmodel.SearchProductEvent
 fun SearchProductScreen(
     product: List<Products>,
     onEvent: (SearchProductEvent) -> Unit
-
 ) {
-
     SearchProduct(product = product, onEvent = onEvent)
-
 }

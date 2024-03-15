@@ -5,10 +5,15 @@ import com.example.fakestore.ui.data.network.model.CategoryDto
 import com.example.fakestore.ui.data.network.model.LoginDto
 import com.example.fakestore.ui.data.network.model.ProductDto
 import com.example.fakestore.ui.data.network.model.ProductForCategoryDto
+import com.example.fakestore.ui.data.network.model.UserProfileDto
+import com.example.fakestore.ui.domain.model.ParameterUser
+import com.example.fakestore.ui.domain.model.UserProfile
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -27,5 +32,14 @@ interface FakeStoreAPIService {
 
     @GET("products")
     suspend fun getAllProducts(): Response<List<ProductDto>>
+
+    @GET("auth/profile")
+    suspend fun getUserDetail(@Header("Authorization") token: String): Response<UserProfileDto>
+
+    @PUT("users/{userId}")
+    suspend fun putParameterUser(
+        @Path("userId") userId: String,
+        @Body parameterUser:UserProfile
+    ): Response<UserProfileDto>
 
 }
