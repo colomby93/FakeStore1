@@ -6,6 +6,8 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.example.fakestore.ui.data.Repository
 import com.example.fakestore.ui.domain.model.UserProfile
+import com.example.fakestore.ui.navigation.Screen
+import com.example.fakestore.ui.navigation.navigate
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -26,6 +28,7 @@ class EditEmailViewModel @Inject constructor(private val repository: Repository)
     private var userId: String = ""
     private var passwordUser: String = ""
     private var passwordEnteredForUser: String = ""
+    private var userProfileParameter: UserProfile? = null
 
     private fun onEmailChanged(email: String) {
         this.email = email
@@ -50,13 +53,13 @@ class EditEmailViewModel @Inject constructor(private val repository: Repository)
 
     fun onEvent(editEmail: EditEmailEvent, navController: NavController) {
         when (editEmail) {
-            is EditEmailEvent.OnEmailChange -> onEmailChanged(editEmail.email)
-            is EditEmailEvent.UserId -> onUserIdChange(editEmail.userId)
-            is EditEmailEvent.OnConfirmEmailChange -> onConfirmEmailChanged(editEmail.confirmEmail)
-            is EditEmailEvent.OnPasswordChange -> onPasswordEnterForUser(editEmail.password)
-            is EditEmailEvent.OnBottomClicked -> conditionForChangeEmail()
-            EditEmailEvent.OnTextButtonConfirmed -> onTextButtonConfirmedNavigate(navController = navController)
             EditEmailEvent.OnArrowBackClicked -> onArrowBack(navController = navController)
+            EditEmailEvent.OnBottomClicked -> conditionForChangeEmail()
+            is EditEmailEvent.OnConfirmEmailChange -> onConfirmEmailChanged(editEmail.confirmEmail)
+            is EditEmailEvent.OnEmailChange -> onEmailChanged(editEmail.email)
+            is EditEmailEvent.OnPasswordChange -> onPasswordEnterForUser(editEmail.password)
+            EditEmailEvent.OnTextButtonConfirmed -> onTextButtonConfirmedNavigate(navController = navController)
+            is EditEmailEvent.UserId -> onUserIdChange(editEmail.userId)
         }
     }
 
@@ -71,6 +74,7 @@ class EditEmailViewModel @Inject constructor(private val repository: Repository)
                 repository.getUserProfile()
                     .fold(error = { Log.e("Error user profile ", "Error network user profile") },
                         success = { userProfile ->
+                            userProfileParameter = userProfile
                             passwordUser = userProfile.password
                             _state.update { it.copy(userProfile = userProfile, loading = false) }
                         })
@@ -102,28 +106,38 @@ class EditEmailViewModel @Inject constructor(private val repository: Repository)
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 _state.update { it.copy(loading = true) }
-                repository.putEditEmail(userId = userId, email = email).fold(
-                    error = {
-                        Log.e("Fail edit email", "error network edit email")
-                        _state.update { it.copy(errorChangeEmail = true) }
-                    }, success = {
-                        Log.e("nuevo email", "el email es {${it.email}}")
-                        _state.update { it.copy(loading = false, changeEmail = true) }
-                    })
+                userProfileParameter?.let {
+                    UserProfile(
+                        avatar = it.avatar,
+                        email = email,
+                        id = it.id,
+                        name = it.name,
+                        password = it.password,
+                        role = it.role
+                    )
+                }?.let {
+                    repository.putParameterUSer(
+                        userId = userId,
+                        parameter = it
+                    ).fold(
+                        error = {
+                            Log.e("Fail edit email", "error network edit email")
+                            _state.update { it.copy(errorChangeEmail = true) }
+                        }, success = {
+                            Log.e("nuevo email", "el email es {${it.email}}")
+                            _state.update { it.copy(loading = false, changeEmail = true) }
+                        })
+                }
             }
         }
     }
 
     private fun onTextButtonConfirmedNavigate(navController: NavController) {
-        if (navController.previousBackStackEntry != null) {
-            navController.navigateUp()
-        }
+        navController.navigate(Screen.UserProfile)
     }
 
     private fun onArrowBack(navController: NavController) {
-        if (navController.previousBackStackEntry != null) {
-            navController.navigateUp()
-        }
+        navController.navigate(Screen.UserProfile)
     }
 
 

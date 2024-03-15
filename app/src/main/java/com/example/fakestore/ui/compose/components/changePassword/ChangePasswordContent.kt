@@ -1,4 +1,4 @@
-package com.example.fakestore.ui.compose.components.editEmail
+package com.example.fakestore.ui.compose.components.changePassword
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.Column
@@ -21,38 +21,32 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.fakestore.ui.domain.model.UserProfile
-import com.example.fakestore.ui.viewmodel.EditEmailEvent
-import com.example.fakestore.ui.viewmodel.EditEmailViewModel
+import com.example.fakestore.ui.compose.components.editEmail.TextFieldConfirmNewPassword
+import com.example.fakestore.ui.compose.components.editEmail.TextFieldNewPassword
+import com.example.fakestore.ui.compose.components.editEmail.TextFieldPassword
+import com.example.fakestore.ui.viewmodel.ChangePasswordEvent
+import com.example.fakestore.ui.viewmodel.ChangePasswordViewModel
+
 
 @Composable
-fun EditEmailContent(
-    userProfile: UserProfile,
-    onEvent: (EditEmailEvent) -> Unit,
-    state: EditEmailViewModel.EditEmailState
+fun ChangePasswordContent(
+    onEvent: (ChangePasswordEvent) -> Unit,
+    state: ChangePasswordViewModel.ChangePasswordState
 ) {
     val context = LocalContext.current
     val openAlertDialog = remember { mutableStateOf(false) }
     Column(modifier = Modifier.fillMaxSize()) {
-        Text(text = "Email change", fontSize = 20.sp, fontWeight = FontWeight.ExtraBold)
+        Text(text = "Change password", fontSize = 20.sp, fontWeight = FontWeight.ExtraBold)
         Spacer(modifier = Modifier.height(15.dp))
-        Text(text = "Current email", color = Color.LightGray)
+        TextFieldPassword(title = "Insert your password", onEvent = onEvent)
         Spacer(modifier = Modifier.height(10.dp))
-        Text(text = userProfile.email)
+        TextFieldConfirmNewPassword(title = "Confirm your password", onEvent = onEvent)
         Spacer(modifier = Modifier.height(10.dp))
-        TextFieldEditEmail(title = "New email address", onEvent = onEvent)
-        Spacer(modifier = Modifier.height(10.dp))
-        TextFieldConfirmEmail(
-            title = "confirm your new email address",
-            onEvent = onEvent,
-            state = state
-        )
-        Spacer(modifier = Modifier.height(10.dp))
-        TextFieldPasswordEmail(title = "Insert your password", onEvent = onEvent)
+        TextFieldNewPassword(title = "Insert new password", onEvent = onEvent)
         Spacer(modifier = Modifier.height(70.dp))
         Button(
             onClick = {
-                onEvent(EditEmailEvent.OnBottomClicked)
+                onEvent(ChangePasswordEvent.OnBottomClicked)
             }, modifier = Modifier
                 .fillMaxWidth(), colors = ButtonDefaults.buttonColors(Color.Black)
         ) {
@@ -60,17 +54,17 @@ fun EditEmailContent(
         }
 
     }
-    if (state.sameEmail) {
-        Toast.makeText(context, "different emails", Toast.LENGTH_LONG).show()
+    if (state.samePassword) {
+        Toast.makeText(context, "different password", Toast.LENGTH_LONG).show()
     }
-    if (state.changeEmail) {
+    if (state.changePassword) {
         AlertDialog(
-            text = { Text(text = "Email change correct") },
+            text = { Text(text = "Password change correct") },
             onDismissRequest = { openAlertDialog.value = false },
             confirmButton = {
                 TextButton(
                     onClick = {
-                        onEvent(EditEmailEvent.OnTextButtonConfirmed)
+                        onEvent(ChangePasswordEvent.OnTextButtonConfirmed)
                     }
                 ) {
                     Text("Confirm")
@@ -84,9 +78,8 @@ fun EditEmailContent(
 @Preview
 @Composable
 fun EditEmailContentPreview() {
-    EditEmailContent(
-        UserProfile("", "Jhon@email.com", 1, "Jhon", "changeme", ""),
+    ChangePasswordContent(
         {},
-        state = EditEmailViewModel.EditEmailState()
+        state = ChangePasswordViewModel.ChangePasswordState()
     )
 }

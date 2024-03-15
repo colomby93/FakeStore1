@@ -59,7 +59,8 @@ fun UserInformationContent(
             icon = Icons.Filled.Password,
             title = "Password",
             description = userProfile.password.map { '*' }.joinToString(separator = " "),
-            onEvent = onEvent
+            onEvent = onEvent,
+            userProfile = userProfile
         )
     }
 }

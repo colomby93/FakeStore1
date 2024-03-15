@@ -17,6 +17,9 @@ interface Repository {
     suspend fun getProductForId(productForId: String): Either<FakeStoreError, Products>
     suspend fun getProduct(): Either<FakeStoreError, List<Products>>
     suspend fun getUserProfile(): Either<FakeStoreError, UserProfile>
-    suspend fun putEditEmail(userId: String, email: String): Either<FakeStoreError, UserProfile>
+    suspend fun putParameterUSer(
+        userId: String,
+        parameter: UserProfile
+    ): Either<FakeStoreError, UserProfile>
 
 }

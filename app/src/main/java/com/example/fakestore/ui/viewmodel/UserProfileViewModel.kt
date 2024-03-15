@@ -38,7 +38,10 @@ class UserProfileViewModel @Inject constructor(
                 navController = navController
             )
 
-            is UserProfileEvent.OnClickedIconEditPassword -> TODO()
+            is UserProfileEvent.OnClickedIconChangePassword -> navigateToScreenChangePassword(
+                userId = userProfileEvent.userId,
+                navController = navController
+            )
         }
     }
 
@@ -63,8 +66,12 @@ class UserProfileViewModel @Inject constructor(
         }
     }
 
-    private fun navigateToScreenEditEmail(userId: String,navController: NavController) {
+    private fun navigateToScreenEditEmail(userId: String, navController: NavController) {
         navController.navigate(screen = Screen.EditEmail, args = USER_ID to userId)
+    }
+
+    private fun navigateToScreenChangePassword(userId: String, navController: NavController) {
+        navController.navigate(screen = Screen.ChangePassword, args = USER_ID to userId)
     }
 
     data class UIState(
@@ -77,6 +84,6 @@ class UserProfileViewModel @Inject constructor(
 sealed class UserProfileEvent {
     data object OnArrowBackClicked : UserProfileEvent()
     data class OnClickedIconEditEmail(val userId: String) : UserProfileEvent()
-    data object OnClickedIconEditPassword : UserProfileEvent()
+    data class OnClickedIconChangePassword(val userId: String) : UserProfileEvent()
 }
 

@@ -52,7 +52,8 @@ fun UserInformationFieldPassword(
     icon: ImageVector,
     title: String,
     description: String,
-    onEvent: (UserProfileEvent) -> Unit
+    onEvent: (UserProfileEvent) -> Unit,
+    userProfile: UserProfile
 ) {
     Column(
         modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.Start
@@ -66,7 +67,7 @@ fun UserInformationFieldPassword(
         ) {
             Text(text = title, color = Color.LightGray)
             Spacer(modifier = Modifier.weight(1F))
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = { onEvent(UserProfileEvent.OnClickedIconChangePassword(userId = userProfile.id.toString())) }) {
                 Icon(imageVector = Icons.Default.Edit, contentDescription = "Icon edit")
             }
         }

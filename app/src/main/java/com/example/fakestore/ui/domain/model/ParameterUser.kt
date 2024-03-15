@@ -1,5 +1,6 @@
 package com.example.fakestore.ui.domain.model
 
-data class Email(
+data class ParameterUser(
     val email: String
+
 )

@@ -10,6 +10,7 @@ sealed class Screen(val route: String) {
     data object SearchProduct : Screen(route = "SearchProduct")
     data object UserProfile : Screen(route = "userProfile")
     data object EditEmail : Screen(route = "ChangeEmail/{$USER_ID}")
+    data object ChangePassword : Screen(route = "ChangePassword/{$USER_ID}")
 
 
     fun withArgs(vararg args: Pair<String, String>): String {

@@ -29,6 +29,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.fakestore.R
+import com.example.fakestore.ui.viewmodel.ChangePasswordEvent
 import com.example.fakestore.ui.viewmodel.EditEmailEvent
 import com.example.fakestore.ui.viewmodel.EditEmailViewModel
 
@@ -91,7 +92,10 @@ fun TextFieldConfirmEmail(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TextFieldPassword(title: String, onEvent: (EditEmailEvent) -> Unit) {
+fun TextFieldPasswordEmail(
+    title: String,
+    onEvent: (EditEmailEvent) -> Unit,
+) {
     var password by remember { mutableStateOf("") }
     var passwordVisibility by remember { mutableStateOf(false) }
     val icon = if (passwordVisibility) painterResource(id = R.drawable.design_ic_visibility)
@@ -104,6 +108,136 @@ fun TextFieldPassword(title: String, onEvent: (EditEmailEvent) -> Unit) {
             onValueChange = {
                 password = it
                 onEvent(EditEmailEvent.OnPasswordChange(it))
+            },
+            trailingIcon = {
+                IconButton(onClick = {
+                    passwordVisibility = !passwordVisibility
+                }) {
+                    Icon(
+                        painter = icon,
+                        contentDescription = "Visibility Icon"
+                    )
+                }
+            },
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Password
+            ),
+            visualTransformation = if (passwordVisibility) VisualTransformation.None
+            else PasswordVisualTransformation(),
+            singleLine = true,
+            modifier = Modifier
+                .clip(shape = RoundedCornerShape(8.dp))
+                .fillMaxWidth()
+                .border(2.dp, color = Color.Gray, shape = RoundedCornerShape(8.dp)),
+            colors = TextFieldDefaults.textFieldColors(containerColor = Color.White)
+        )
+    }
+
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun TextFieldPassword(
+    title: String,
+    onEvent: (ChangePasswordEvent) -> Unit,
+) {
+    var password by remember { mutableStateOf("") }
+    var passwordVisibility by remember { mutableStateOf(false) }
+    val icon = if (passwordVisibility) painterResource(id = R.drawable.design_ic_visibility)
+    else painterResource(id = R.drawable.design_ic_visibility_off)
+    Column {
+        Text(text = title, fontWeight = FontWeight.Bold)
+        Spacer(modifier = Modifier.height(4.dp))
+        TextField(
+            value = password,
+            onValueChange = {
+                password = it
+                onEvent(ChangePasswordEvent.OnPasswordEventCurrent(it))
+            },
+            trailingIcon = {
+                IconButton(onClick = {
+                    passwordVisibility = !passwordVisibility
+                }) {
+                    Icon(
+                        painter = icon,
+                        contentDescription = "Visibility Icon"
+                    )
+                }
+            },
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Password
+            ),
+            visualTransformation = if (passwordVisibility) VisualTransformation.None
+            else PasswordVisualTransformation(),
+            singleLine = true,
+            modifier = Modifier
+                .clip(shape = RoundedCornerShape(8.dp))
+                .fillMaxWidth()
+                .border(2.dp, color = Color.Gray, shape = RoundedCornerShape(8.dp)),
+            colors = TextFieldDefaults.textFieldColors(containerColor = Color.White)
+        )
+    }
+
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun TextFieldConfirmNewPassword(title: String, onEvent: (ChangePasswordEvent) -> Unit) {
+    var password by remember { mutableStateOf("") }
+    var passwordVisibility by remember { mutableStateOf(false) }
+    val icon = if (passwordVisibility) painterResource(id = R.drawable.design_ic_visibility)
+    else painterResource(id = R.drawable.design_ic_visibility_off)
+    Column {
+        Text(text = title, fontWeight = FontWeight.Bold)
+        Spacer(modifier = Modifier.height(4.dp))
+        TextField(
+            value = password,
+            onValueChange = {
+                password = it
+                onEvent(ChangePasswordEvent.OnConfirmNewPasswordEvent(it))
+            },
+            trailingIcon = {
+                IconButton(onClick = {
+                    passwordVisibility = !passwordVisibility
+                }) {
+                    Icon(
+                        painter = icon,
+                        contentDescription = "Visibility Icon"
+                    )
+                }
+            },
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Password
+            ),
+            visualTransformation = if (passwordVisibility) VisualTransformation.None
+            else PasswordVisualTransformation(),
+            singleLine = true,
+            modifier = Modifier
+                .clip(shape = RoundedCornerShape(8.dp))
+                .fillMaxWidth()
+                .border(2.dp, color = Color.Gray, shape = RoundedCornerShape(8.dp)),
+            colors = TextFieldDefaults.textFieldColors(containerColor = Color.White)
+        )
+    }
+
+}
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun TextFieldNewPassword(title: String, onEvent: (ChangePasswordEvent) -> Unit) {
+    var password by remember { mutableStateOf("") }
+    var passwordVisibility by remember { mutableStateOf(false) }
+    val icon = if (passwordVisibility) painterResource(id = R.drawable.design_ic_visibility)
+    else painterResource(id = R.drawable.design_ic_visibility_off)
+    Column {
+        Text(text = title, fontWeight = FontWeight.Bold)
+        Spacer(modifier = Modifier.height(4.dp))
+        TextField(
+            value = password,
+            onValueChange = {
+                password = it
+                onEvent(ChangePasswordEvent.OnNewPasswordEvent(it))
             },
             trailingIcon = {
                 IconButton(onClick = {
