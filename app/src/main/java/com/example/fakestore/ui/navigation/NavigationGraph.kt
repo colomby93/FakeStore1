@@ -15,13 +15,17 @@ import com.example.fakestore.ui.compose.route.EditEmailRoute
 import com.example.fakestore.ui.compose.route.LoginRoute
 import com.example.fakestore.ui.compose.route.MainScreenRoute
 import com.example.fakestore.ui.compose.route.SearchProductRoute
+import com.example.fakestore.ui.compose.route.SplashRoute
 import com.example.fakestore.ui.compose.route.UserProfileRoute
 
 @Composable
 fun NavigationGraph(
     navController: NavHostController = rememberNavController()
 ) {
-    NavHost(navController = navController, startDestination = Screen.Login.route) {
+    NavHost(navController = navController, startDestination = Screen.Splash.route) {
+        composable(route = Screen.Splash.route) {
+            SplashRoute(navController = navController)
+        }
         composable(route = Screen.Login.route) {
             LoginRoute(navController = navController)
         }
