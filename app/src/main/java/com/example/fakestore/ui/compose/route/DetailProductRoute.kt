@@ -20,7 +20,7 @@ fun DetailProductRoute(
 
     Box {
         product.product?.let { product ->
-            DetailProductScreen(product = product) {
+            DetailProductScreen(product = product, state = viewModel.state.collectAsState().value) {
                 viewModel.onEvent(
                     it,
                     navController

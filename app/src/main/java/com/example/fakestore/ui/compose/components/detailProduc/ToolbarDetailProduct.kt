@@ -18,11 +18,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.fakestore.ui.domain.model.Products
 import com.example.fakestore.ui.viewmodel.DetailProduct
+import com.example.fakestore.ui.viewmodel.ProductDetailViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ToolbarDetailProduct(product: Products, onEvent: (DetailProduct) -> Unit) {
+fun ToolbarDetailProduct(
+    product: Products,
+    state: ProductDetailViewModel.UIState,
+    onEvent: (DetailProduct) -> Unit
+) {
     Scaffold(
         topBar = {
             TopAppBar(navigationIcon = {
@@ -51,7 +56,7 @@ fun ToolbarDetailProduct(product: Products, onEvent: (DetailProduct) -> Unit) {
                     .verticalScroll(rememberScrollState())
             ) {
                 SliderImage(product = product, it)
-                BuyProduct(product = product)
+                BuyProduct(product = product, state = state)
             }
 
         }

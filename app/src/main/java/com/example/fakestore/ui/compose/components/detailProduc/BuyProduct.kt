@@ -1,5 +1,6 @@
 package com.example.fakestore.ui.compose.components.detailProduc
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -29,13 +30,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.fakestore.ui.domain.model.Products
+import com.example.fakestore.ui.viewmodel.ProductDetailViewModel
 
 @Composable
-fun BuyProduct(product: Products) {
+fun BuyProduct(product: Products, state: ProductDetailViewModel.UIState) {
     var expanded by remember { mutableStateOf(false) }
     var sizeSelected by remember { mutableStateOf("S") }
     val itemsSize = listOf("S", "M", "L", "XL", "XXL")
@@ -63,7 +66,8 @@ fun BuyProduct(product: Products) {
         Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
             Button(
                 onClick = { /*TODO*/ },
-                modifier = Modifier.weight(1f),
+                modifier = Modifier
+                    .weight(1f),
                 shape = RoundedCornerShape(0.dp),
                 colors = ButtonDefaults.buttonColors(
                     Color.White
@@ -82,29 +86,38 @@ fun BuyProduct(product: Products) {
                     .width(2.dp)
                     .height(20.dp)
             )
-            Button(onClick = { expanded = true }, content = {
-                Text(text = "Size", color = Color.Black)
-                Spacer(modifier = Modifier.width(10.dp))
-                Text(text = sizeSelected, color = Color.Black)
-                Spacer(modifier = Modifier.width(10.dp))
-                Icon(
-                    imageVector = Icons.Default.ArrowDropDown,
-                    contentDescription = "Arrow drop menu",
-                    tint = Color.Black
-                )
-                DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
-                    itemsSize.forEachIndexed { index, size ->
-                        DropdownMenuItem(text = {
-                            Text(text = size, color = Color.Black)
-                        }, onClick = { sizeSelected = size; expanded = false })
+            Button(
+                onClick = { expanded = state.buttonSizeVisibility },
+                content = {
+                    Text(text = "Size", color = Color.Black)
+                    Spacer(modifier = Modifier.width(10.dp))
+                    Text(text = sizeSelected, color = Color.Black)
+                    Spacer(modifier = Modifier.width(10.dp))
+                    Icon(
+                        imageVector = Icons.Default.ArrowDropDown,
+                        contentDescription = "Arrow drop menu",
+                        tint = Color.Black
+                    )
+                    DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
+                        itemsSize.forEachIndexed { index, size ->
+                            DropdownMenuItem(
+                                text = {
+                                    Text(text = size, color = Color.Black)
+                                },
+                                onClick = { sizeSelected = size; expanded = false },
+                            )
+                        }
                     }
-                }
-            }, modifier = Modifier.weight(1f), shape = RoundedCornerShape(0.dp),
+                },
+                modifier = Modifier
+                    .weight(1f)
+                    .alpha(if (state.buttonSizeVisibility) 1f else 0f),
+                shape = RoundedCornerShape(0.dp),
                 colors = ButtonDefaults.buttonColors(
                     Color.White
                 )
             )
-
+            Log.e("button visibility", "${state.buttonSizeVisibility}")
 
         }
         Box(contentAlignment = Alignment.BottomCenter, modifier = Modifier.fillMaxHeight()) {

@@ -18,8 +18,16 @@ import javax.inject.Inject
 @HiltViewModel
 class ProductDetailViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
 
+    data class UIState(
+        val loading: Boolean = false,
+        val product: Products? = null,
+        val buttonSizeVisibility: Boolean = true
+    )
+
     private val _state = MutableStateFlow(UIState())
     var state: StateFlow<UIState> = _state
+
+    var categoryId: Int = 0
 
     fun onEvent(detailProduct: DetailProduct, navController: NavController) {
         when (detailProduct) {
@@ -34,6 +42,13 @@ class ProductDetailViewModel @Inject constructor(private val repository: Reposit
                 repository.getProductForId(productId).fold(
                     error = { Log.e("Error network", "Error network product for id") },
                     success = { product ->
+                        categoryId = product.category.id
+                        Log.e("categoryId", "$categoryId")
+                        if (categoryId == 1) {
+                            _state.update { it.copy(buttonSizeVisibility = true) }
+                        } else {
+                            _state.update { it.copy(buttonSizeVisibility = false) }
+                        }
                         _state.update { it.copy(product = product, loading = false) }
                     }
                 )
@@ -41,19 +56,13 @@ class ProductDetailViewModel @Inject constructor(private val repository: Reposit
         }
     }
 
-
     private fun onArrowBack(navController: NavController) {
         if (navController.previousBackStackEntry != null) {
             navController.navigateUp()
         }
     }
+
 }
-
-data class UIState(
-    val loading: Boolean = false,
-    val product: Products? = null
-)
-
 
 sealed class DetailProduct {
     data object OnArrowBackClicked : DetailProduct()

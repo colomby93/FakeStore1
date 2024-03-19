@@ -11,7 +11,7 @@ import com.example.fakestore.ui.domain.model.UserProfile
 interface Repository {
     suspend fun login(email: String, password: String): Either<FakeStoreError, Success>
 
-    suspend fun getCategory(): Either<FakeStoreError, List<Category>>
+    suspend fun getCategory(): Either<FakeStoreError, Category>
 
     suspend fun getProductForCategory(categoryId: String): Either<FakeStoreError, List<ProductForCategory>>
     suspend fun getProductForId(productForId: String): Either<FakeStoreError, Products>
