@@ -2,31 +2,45 @@ package com.example.fakestore.ui.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
+import com.example.fakestore.ui.compose.components.failConnectionInternet.NetworkConnectivityService
+import com.example.fakestore.ui.compose.components.failConnectionInternet.NetworkStatus
 import com.example.fakestore.ui.data.preference.Preferences
 import com.example.fakestore.ui.navigation.Screen
 import com.example.fakestore.ui.navigation.navigate
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted.Companion.WhileSubscribed
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 @HiltViewModel
-class SplashViewModel @Inject constructor(preferences: Preferences) : ViewModel() {
+class SplashViewModel @Inject constructor(
+    private val preferences: Preferences,
+    private val networkConnectivityService: NetworkConnectivityService
+) : ViewModel() {
 
     private val _state = MutableStateFlow(SplashState())
     val state: StateFlow<SplashState> = _state
 
     private val token = preferences.hasToken()
 
+    val networkStatus: StateFlow<NetworkStatus> = networkConnectivityService.networkStatus.stateIn(
+        initialValue = NetworkStatus.Unknown,
+        scope = viewModelScope,
+        started = WhileSubscribed(5000)
+    )
+
     init {
         token()
     }
 
     private fun token() {
+        Log.e("token", "$token")
         if (token) {
-            Log.e("token", "$token")
             _state.update { it.copy(hasToken = true) }
         } else {
             _state.update { it.copy(hasToken = false) }
@@ -37,6 +51,9 @@ class SplashViewModel @Inject constructor(preferences: Preferences) : ViewModel(
         when (splashEvent) {
             SplashEvent.NavigationToLoginScreen -> navigationToLoginScreen(navController = navController)
             SplashEvent.NavigationToMainScreen -> navigationToMainScreen(navController = navController)
+            SplashEvent.NavigationToFailConnectionScreen -> navigationToFailConnectionScreen(
+                navController = navController
+            )
         }
     }
 
@@ -56,8 +73,11 @@ class SplashViewModel @Inject constructor(preferences: Preferences) : ViewModel(
         }
     }
 
+    private fun navigationToFailConnectionScreen(navController: NavController) {
+        navController.navigate(Screen.FailConnection)
+    }
+
     data class SplashState(
-        val loading: Boolean = false,
         val hasToken: Boolean = false
     )
 }
@@ -65,4 +85,5 @@ class SplashViewModel @Inject constructor(preferences: Preferences) : ViewModel(
 sealed class SplashEvent {
     data object NavigationToMainScreen : SplashEvent()
     data object NavigationToLoginScreen : SplashEvent()
+    data object NavigationToFailConnectionScreen : SplashEvent()
 }

@@ -5,6 +5,7 @@ var USER_ID = "user_id"
 
 sealed class Screen(val route: String) {
     data object Splash : Screen(route = "splash")
+    data object FailConnection : Screen(route = "FailConnection")
     data object Login : Screen(route = "login")
     data object MainScreen : Screen(route = "MainScreen")
     data object DetailProduct : Screen(route = "DetailProduct/{$PRODUCT_ID}")

@@ -10,7 +10,7 @@ import com.example.fakestore.ui.domain.model.UserProfile
 
 interface NetworkDatasource {
     suspend fun login(email: String, password: String): Either<FakeStoreError, AuthLogin>
-    suspend fun getCategories(): Either<FakeStoreError, List<Category>>
+    suspend fun getCategories(): Either<FakeStoreError, Category>
     suspend fun getProductsForCategory(categoryId: String): Either<FakeStoreError, List<ProductForCategory>>
     suspend fun getProductForId(productForId: String): Either<FakeStoreError, Products>
     suspend fun getProduct(): Either<FakeStoreError, List<Products>>

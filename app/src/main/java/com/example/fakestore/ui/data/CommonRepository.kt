@@ -23,7 +23,7 @@ class CommonRepository @Inject constructor(
         }
     }
 
-    override suspend fun getCategory(): Either<FakeStoreError, List<Category>> {
+    override suspend fun getCategory(): Either<FakeStoreError, Category> {
         return networkDatasource.getCategories()
     }
 

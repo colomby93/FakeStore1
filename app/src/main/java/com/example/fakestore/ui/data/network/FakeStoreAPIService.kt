@@ -1,12 +1,11 @@
 package com.example.fakestore.ui.data.network
 
 import com.example.fakestore.ui.data.network.model.AuthLoginDto
-import com.example.fakestore.ui.data.network.model.CategoryDto
+import com.example.fakestore.ui.data.network.model.CategoryDtoItem
 import com.example.fakestore.ui.data.network.model.LoginDto
 import com.example.fakestore.ui.data.network.model.ProductDto
 import com.example.fakestore.ui.data.network.model.ProductForCategoryDto
 import com.example.fakestore.ui.data.network.model.UserProfileDto
-import com.example.fakestore.ui.domain.model.ParameterUser
 import com.example.fakestore.ui.domain.model.UserProfile
 import retrofit2.Response
 import retrofit2.http.Body
@@ -22,7 +21,7 @@ interface FakeStoreAPIService {
     suspend fun login(@Body loginDto: LoginDto): Response<AuthLoginDto>
 
     @GET("categories")
-    suspend fun getCategories(): Response<CategoryDto>
+    suspend fun getCategories(): Response<CategoryDtoItem>
 
     @GET("products")
     suspend fun getProductsForCategory(@Query("categoryId") categoryId: String): Response<ProductForCategoryDto>
@@ -39,7 +38,7 @@ interface FakeStoreAPIService {
     @PUT("users/{userId}")
     suspend fun putParameterUser(
         @Path("userId") userId: String,
-        @Body parameterUser:UserProfile
+        @Body parameterUser: UserProfile
     ): Response<UserProfileDto>
 
 }
