@@ -21,9 +21,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.fakestore.ui.compose.components.editEmail.TextFieldConfirmNewPassword
-import com.example.fakestore.ui.compose.components.editEmail.TextFieldNewPassword
-import com.example.fakestore.ui.compose.components.editEmail.TextFieldPassword
+import com.example.fakestore.ui.compose.components.reusable.TextFieldPassword
 import com.example.fakestore.ui.viewmodel.ChangePasswordEvent
 import com.example.fakestore.ui.viewmodel.ChangePasswordViewModel
 
@@ -38,11 +36,17 @@ fun ChangePasswordContent(
     Column(modifier = Modifier.fillMaxSize()) {
         Text(text = "Change password", fontSize = 20.sp, fontWeight = FontWeight.ExtraBold)
         Spacer(modifier = Modifier.height(15.dp))
-        TextFieldPassword(title = "Insert your password", onEvent = onEvent)
+        TextFieldPassword(
+            title = "Insert your password",
+            onEvent = { onEvent(ChangePasswordEvent.OnPasswordCurrent(it)) })
         Spacer(modifier = Modifier.height(10.dp))
-        TextFieldConfirmNewPassword(title = "Confirm your password", onEvent = onEvent)
+        TextFieldPassword(
+            title = "Confirm your password",
+            onEvent = { onEvent(ChangePasswordEvent.OnConfirmNewPassword(it)) })
         Spacer(modifier = Modifier.height(10.dp))
-        TextFieldNewPassword(title = "Insert new password", onEvent = onEvent)
+        TextFieldPassword(
+            title = "Insert new password",
+            onEvent = { onEvent(ChangePasswordEvent.OnNewPassword(it)) })
         Spacer(modifier = Modifier.height(70.dp))
         Button(
             onClick = {

@@ -21,6 +21,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.fakestore.ui.compose.components.reusable.TextFieldEmail
+import com.example.fakestore.ui.compose.components.reusable.TextFieldPassword
 import com.example.fakestore.ui.domain.model.UserProfile
 import com.example.fakestore.ui.viewmodel.EditEmailEvent
 import com.example.fakestore.ui.viewmodel.EditEmailViewModel
@@ -40,15 +42,21 @@ fun EditEmailContent(
         Spacer(modifier = Modifier.height(10.dp))
         Text(text = userProfile.email)
         Spacer(modifier = Modifier.height(10.dp))
-        TextFieldEditEmail(title = "New email address", onEvent = onEvent)
-        Spacer(modifier = Modifier.height(10.dp))
-        TextFieldConfirmEmail(
-            title = "confirm your new email address",
-            onEvent = onEvent,
-            state = state
+        TextFieldEmail(
+            title = "New email address",
+            onEvent = { onEvent(EditEmailEvent.OnEmailChange(it)) },
+            state = state.sameEmail
         )
         Spacer(modifier = Modifier.height(10.dp))
-        TextFieldPasswordEmail(title = "Insert your password", onEvent = onEvent)
+        TextFieldEmail(
+            title = "confirm your new email address",
+            onEvent = { onEvent(EditEmailEvent.OnConfirmEmailChange(it)) },
+            state = state.sameEmail
+        )
+        Spacer(modifier = Modifier.height(10.dp))
+        TextFieldPassword(
+            title = "Insert your password",
+            onEvent = { onEvent(EditEmailEvent.OnPasswordChange(it)) })
         Spacer(modifier = Modifier.height(70.dp))
         Button(
             onClick = {

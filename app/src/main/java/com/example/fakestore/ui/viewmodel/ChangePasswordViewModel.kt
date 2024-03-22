@@ -53,13 +53,13 @@ class ChangePasswordViewModel @Inject constructor(private val repository: Reposi
 
     fun onEvent(changePasswordEvent: ChangePasswordEvent, navController: NavController) {
         when (changePasswordEvent) {
-            is ChangePasswordEvent.OnPasswordEventCurrent -> onPasswordCurrent(changePasswordEvent.passwordCurrent)
+            is ChangePasswordEvent.OnPasswordCurrent -> onPasswordCurrent(changePasswordEvent.passwordCurrent)
             is ChangePasswordEvent.UserId -> onUserIdChange(changePasswordEvent.userId)
-            is ChangePasswordEvent.OnConfirmNewPasswordEvent -> onConfirmNewPassword(
+            is ChangePasswordEvent.OnConfirmNewPassword -> onConfirmNewPassword(
                 changePasswordEvent.confirmNewPassword
             )
 
-            is ChangePasswordEvent.OnNewPasswordEvent -> onNewPassword(changePasswordEvent.newPassword)
+            is ChangePasswordEvent.OnNewPassword -> onNewPassword(changePasswordEvent.newPassword)
             is ChangePasswordEvent.OnBottomClicked -> conditionForChangePassword()
             ChangePasswordEvent.OnTextButtonConfirmed -> onTextButtonConfirmedNavigate(navController = navController)
             ChangePasswordEvent.OnArrowBackClicked -> onArrowBack(navController = navController)
@@ -155,10 +155,10 @@ class ChangePasswordViewModel @Inject constructor(private val repository: Reposi
 }
 
 sealed class ChangePasswordEvent {
-    data class OnPasswordEventCurrent(val passwordCurrent: String) : ChangePasswordEvent()
-    data class OnConfirmNewPasswordEvent(val confirmNewPassword: String) : ChangePasswordEvent()
+    data class OnPasswordCurrent(val passwordCurrent: String) : ChangePasswordEvent()
+    data class OnConfirmNewPassword(val confirmNewPassword: String) : ChangePasswordEvent()
     data class UserId(val userId: String) : ChangePasswordEvent()
-    data class OnNewPasswordEvent(val newPassword: String) : ChangePasswordEvent()
+    data class OnNewPassword(val newPassword: String) : ChangePasswordEvent()
     data object OnBottomClicked : ChangePasswordEvent()
     data object OnTextButtonConfirmed : ChangePasswordEvent()
     data object OnArrowBackClicked : ChangePasswordEvent()

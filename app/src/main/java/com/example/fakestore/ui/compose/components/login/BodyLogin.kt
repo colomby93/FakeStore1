@@ -72,7 +72,7 @@ fun LoginForm(
             label = { Text(text = "Address email", color = Color.White) },
 
             keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Password
+                keyboardType = KeyboardType.Email
             ),
             isError = state.showError,
             singleLine = true,
