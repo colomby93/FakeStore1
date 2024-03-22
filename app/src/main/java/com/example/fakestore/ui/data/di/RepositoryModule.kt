@@ -1,5 +1,7 @@
 package com.example.fakestore.ui.data.di
 
+import com.example.fakestore.ui.compose.components.failConnectionInternet.NetworkConnectivityService
+import com.example.fakestore.ui.compose.components.failConnectionInternet.NetworkConnectivityServiceImpl
 import com.example.fakestore.ui.data.CommonRepository
 import com.example.fakestore.ui.data.Repository
 import com.example.fakestore.ui.data.network.CommonNetworkDatasource
@@ -22,4 +24,8 @@ abstract class RepositoryModule {
 
     @Binds
     abstract fun bindPreference(preference: CommonPreferences): Preferences
+
+    @Binds
+    abstract fun bindNetworkConnectivity(networkConnectivityServiceImpl: NetworkConnectivityServiceImpl): NetworkConnectivityService
+
 }

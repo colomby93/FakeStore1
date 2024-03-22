@@ -12,6 +12,7 @@ import androidx.navigation.navArgument
 import com.example.fakestore.ui.compose.route.ChangePasswordRoute
 import com.example.fakestore.ui.compose.route.DetailProductRoute
 import com.example.fakestore.ui.compose.route.EditEmailRoute
+import com.example.fakestore.ui.compose.route.FailConnectionRoute
 import com.example.fakestore.ui.compose.route.LoginRoute
 import com.example.fakestore.ui.compose.route.MainScreenRoute
 import com.example.fakestore.ui.compose.route.SearchProductRoute
@@ -25,6 +26,9 @@ fun NavigationGraph(
     NavHost(navController = navController, startDestination = Screen.Splash.route) {
         composable(route = Screen.Splash.route) {
             SplashRoute(navController = navController)
+        }
+        composable(route = Screen.FailConnection.route) {
+            FailConnectionRoute(navController = navController)
         }
         composable(route = Screen.Login.route) {
             LoginRoute(navController = navController)

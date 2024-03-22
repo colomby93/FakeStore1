@@ -27,7 +27,7 @@ class ProductDetailViewModel @Inject constructor(private val repository: Reposit
     private val _state = MutableStateFlow(UIState())
     var state: StateFlow<UIState> = _state
 
-    var categoryId: Int = 0
+    private var categoryId: Int = 0
 
     fun onEvent(detailProduct: DetailProduct, navController: NavController) {
         when (detailProduct) {
