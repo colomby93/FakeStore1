@@ -23,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.example.fakestore.ui.compose.components.reusable.ImageItem
 import com.example.fakestore.ui.domain.model.ProductForCategory
 import com.example.fakestore.ui.viewmodel.MainScreenEvent
 import com.example.fakestore.ui.viewmodel.MainScreenViewModel
@@ -48,7 +49,7 @@ fun CardProduct(
             colors = CardDefaults.cardColors(Color.LightGray)
 
         ) {
-            ImageProductForCategory(productForCategory = productForCategory)
+            ImageItem(imageUrl = productForCategory.images.first())
             Spacer(modifier = Modifier.size(5.dp))
             Row(
                 modifier = Modifier

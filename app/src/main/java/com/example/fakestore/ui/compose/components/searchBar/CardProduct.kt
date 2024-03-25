@@ -21,7 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.fakestore.ui.compose.components.mainScreen.ImageProduct
+import com.example.fakestore.ui.compose.components.reusable.ImageItem
 import com.example.fakestore.ui.domain.model.Products
 import com.example.fakestore.ui.viewmodel.SearchProductEvent
 
@@ -44,7 +44,7 @@ fun CardProduct(
         colors = CardDefaults.cardColors(Color.LightGray)
 
     ) {
-        ImageProduct(product = product)
+        ImageItem(imageUrl = product.images.first())
         Spacer(modifier = Modifier.size(5.dp))
         Row(
             modifier = Modifier
